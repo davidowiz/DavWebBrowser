@@ -2,7 +2,8 @@
 
 namespace DavWebCreator
 {
-    public class Class1
+    public class Main
     {
+
     }
 }
