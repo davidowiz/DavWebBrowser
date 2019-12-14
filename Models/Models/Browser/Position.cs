@@ -1,5 +1,8 @@
-﻿namespace Resources.Models.Browser
+﻿using System;
+
+namespace Browsers.Models.BrowserModels
 {
+    [Serializable]
     public enum Position
     {
         Top_Left = 1,

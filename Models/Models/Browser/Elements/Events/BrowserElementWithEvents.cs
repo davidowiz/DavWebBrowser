@@ -1,11 +1,12 @@
 ﻿using DavWebCreator.Resources.Models.Browser.Elements.Events;
-using Resources.Models.Browser;
-using Resources.Models.Browser.Elements;
+using Browsers.Models.BrowserModels;
+using Browsers.Models.BrowserModels.Elements;
 using System;
 using System.Collections.Generic;
 
 namespace DavWebCreator.Resources.Models.Browser.Elements
 {
+    [Serializable]
     public class BrowserElementWithEvent : BrowserElement
     {
         // Remote Events
@@ -25,6 +26,8 @@ namespace DavWebCreator.Resources.Models.Browser.Elements
             this.Title = title;
             this.FontSize = fontSize;
             this.Bold = bold;
+
+            this.ReturnObjects = new List<BrowserRemoteReturnObject>();
         }
         
         public void AddReturnObject(Guid id, Type returnType)

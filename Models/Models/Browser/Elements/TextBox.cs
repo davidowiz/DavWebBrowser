@@ -1,6 +1,9 @@
 ﻿
-namespace Resources.Models.Browser.Elements
+using System;
+
+namespace Browsers.Models.BrowserModels.Elements
 {
+    [Serializable]
     public class BrowserTextBox : BrowserElement
     {
         public string PlaceHolder { get; set; }

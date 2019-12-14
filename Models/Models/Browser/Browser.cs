@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Browsers.Models.BrowserModels.Elements;
+using System;
 using System.Collections.Generic;
 
-namespace Resources.Models.Browser.Elements
+namespace Browsers.Models.BrowserModels
 {
+    [Serializable]
     public class Browser : IBrowser
     {
         public Guid Id { get; set; }
@@ -11,15 +13,18 @@ namespace Resources.Models.Browser.Elements
         public List<BrowserElement> Elements { get; set; }
         public Position Position { get; set; }
 
+        public Browser()
+        {
 
+        }
 
         public Browser(string title, BrowserType type, Position position)
         {
-            this.Path = "DavWebCreater/Custom/Template.html";
+            this.Id = Guid.NewGuid();
+            this.Path = $"package://statics/DavWebCreater/Custom/Template.html";
             this.Type = type;
             this.Position = position;
-            this.Elements.Add(new BrowserTitle(Position.Mid, "Hello", "12px", true));
-          
+            this.Elements = new List<BrowserElement>();
         }
 
 
@@ -31,6 +36,11 @@ namespace Resources.Models.Browser.Elements
         public void AddElement(BrowserElement element)
         {
             this.Elements.Add(element);
+        }
+
+        public override string ToString()
+        {
+            return string.Format(this.Id + " | " + this.Path + " | " + this.Position + " | " + this.Type);
         }
     }
 }

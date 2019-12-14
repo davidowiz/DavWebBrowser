@@ -1,5 +1,8 @@
-﻿namespace Resources.Models.Browser.Elements
+﻿using System;
+
+namespace Browsers.Models.BrowserModels.Elements
 {
+    [Serializable]
     public class BrowserCheckBox : BrowserElement
     {
         public string Text { get; set; }

@@ -1,6 +1,9 @@
 ﻿
-namespace Resources.Models.Browser
+using System;
+
+namespace Browsers.Models.BrowserModels
 {
+    [Serializable]
     public enum BrowserType
     {
         Custom = 1,

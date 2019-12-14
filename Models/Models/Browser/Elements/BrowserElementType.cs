@@ -1,5 +1,8 @@
-﻿namespace Resources.Models.Browser.Elements
+﻿using System;
+
+namespace Browsers.Models.BrowserModels.Elements
 {
+    [Serializable]
     public enum BrowserElementType
     {
         TextBox = 1,

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace Resources.Models.Browser.Elements
+namespace Browsers.Models.BrowserModels.Elements
 {
+    [Serializable]
     public class BrowserContainer : BrowserElement
     {
         public List<BrowserElement> Elements { get; set; }

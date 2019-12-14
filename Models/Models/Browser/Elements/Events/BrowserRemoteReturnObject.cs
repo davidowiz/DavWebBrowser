@@ -2,6 +2,7 @@
 
 namespace DavWebCreator.Resources.Models.Browser.Elements.Events
 {
+    [Serializable]
     public class BrowserRemoteReturnObject
     {
         public Guid Id { get; private set; }

@@ -1,8 +1,9 @@
 ﻿using System;
 
-namespace Resources.Models.Browser.Elements
+namespace Browsers.Models.BrowserModels.Elements
 {
-    public abstract class BrowserElement
+    [Serializable]
+    public class BrowserElement
     {
         public Guid Id { get; set; }
         public BrowserElementType Type { get; set;}

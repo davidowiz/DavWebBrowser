@@ -1,6 +1,7 @@
-﻿using Resources.Models.Browser.Elements;
+﻿using Browsers.Models.BrowserModels.Elements;
+using System;
 
-namespace Resources.Models.Browser
+namespace Browsers.Models.BrowserModels
 {
     public interface IBrowser
     {
