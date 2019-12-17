@@ -5,12 +5,7 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DavWebCreator.Server", "DavWebCreator\DavWebCreator.Server.csproj", "{1F905F76-E094-45C1-9ED8-805371B11E39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DavWebCreator.Resources", "Models\DavWebCreator.Resources.csproj", "{38F01CF5-D7B0-48BD-BF5F-B96516918CD2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DavWebCreator.Client", "D:\ragemp\server-files\client_packages\cs_packages\DavWebCreator.Client.csproj", "{C0E784FA-8953-4791-9F1C-D32E31F07A67}"
-	ProjectSection(ProjectDependencies) = postProject
-		{38F01CF5-D7B0-48BD-BF5F-B96516918CD2} = {38F01CF5-D7B0-48BD-BF5F-B96516918CD2}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +17,6 @@ Global
 		{1F905F76-E094-45C1-9ED8-805371B11E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F905F76-E094-45C1-9ED8-805371B11E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F905F76-E094-45C1-9ED8-805371B11E39}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38F01CF5-D7B0-48BD-BF5F-B96516918CD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38F01CF5-D7B0-48BD-BF5F-B96516918CD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38F01CF5-D7B0-48BD-BF5F-B96516918CD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38F01CF5-D7B0-48BD-BF5F-B96516918CD2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C0E784FA-8953-4791-9F1C-D32E31F07A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C0E784FA-8953-4791-9F1C-D32E31F07A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0E784FA-8953-4791-9F1C-D32E31F07A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
