@@ -15,7 +15,7 @@ Starter Guide:
 5. Now add a file called "meta.xml" to your "server-files/bridge/resources/DavWebBrowser" folder.
 6. Open the file in a text-editor and paste the following content in.
 
-<?xml version="1.0" encoding="utf-8"?>
+"<?xml version="1.0" encoding="utf-8"?>
 <meta>
   <info name = "DavWebCreator" author="Davidowiz" type="gamemode"/>
   
@@ -29,7 +29,7 @@ Starter Guide:
     <!-- Stylesheet Configuration-->
     <setting name = "THEME" value="default"/>
   </settings>
-</meta>
+</meta>"
 
 7. This is hopefully everything in order to contribute.
 
