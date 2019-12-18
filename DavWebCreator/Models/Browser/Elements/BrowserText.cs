@@ -1,6 +1,7 @@
 ﻿using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
 using DavWebCreator.Clients.ClientModels.Browser.Elements;
+using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 
 namespace DavWebCreator.Server.Models.Browser.Elements
 {
@@ -11,8 +12,9 @@ namespace DavWebCreator.Server.Models.Browser.Elements
         public string FontFamily { get; set; }
         public bool Bold { get; set; }
         public string FontColor { get; set; }
+        public BrowserTextAlign TextAlign { get; set; }
         
-        public BrowserText(Position position, string text, string fontSize, string fontFamily, bool bold, string fontColor, string width, string height)
+        public BrowserText(Position position, string text, string fontSize, string fontFamily, bool bold, string fontColor, string width, string height, BrowserTextAlign textAlign)
             : base(BrowserElementType.Text, position)
         {
             this.Text = text;
@@ -22,6 +24,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements
             this.FontColor = fontColor;
             this.Width = width;
             this.Height = height;
+            this.TextAlign = textAlign;
         }
     }
 }

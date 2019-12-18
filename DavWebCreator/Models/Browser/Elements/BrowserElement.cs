@@ -5,6 +5,7 @@ namespace Browsers.Models.BrowserModels.Elements
     public class BrowserElement
     {
         public Guid Id { get; set; }
+        public int OrderIndex { get; set; }
         public BrowserElementType Type { get; set; }
         public Position Position { get; set; }
         public Guid? Parent { get; set; }

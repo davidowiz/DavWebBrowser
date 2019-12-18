@@ -11,7 +11,9 @@ namespace Browsers.Models.BrowserModels.Elements
         public Guid Id { get; set; }
         public string Path { get; set; }
         public BrowserType Type { get; set; }
-        public List<BrowserElement> Elements { get; set; }
+        [JsonIgnore] 
+        // Elements are seperated by position 
+        public List<BrowserElement> Elements { get; private set; }
         public Position Position { get; set; }
         public string Width { get; set; }
         public string Height { get; set; }
@@ -38,11 +40,13 @@ namespace Browsers.Models.BrowserModels.Elements
         {
             player.TriggerEvent("INITIALIZE_CEF_BROWSER", JsonConvert.SerializeObject(this),
                 JsonConvert.SerializeObject(this.Elements.Where(w => w.Type == BrowserElementType.Title)),
-                JsonConvert.SerializeObject(this.Elements.Where(w => w.Type == BrowserElementType.Text)));
+                JsonConvert.SerializeObject(this.Elements.Where(w => w.Type == BrowserElementType.Text)),
+                JsonConvert.SerializeObject(this.Elements.Where(w => w.Type == BrowserElementType.Checkbox)));
         }
 
         public void AddElement(BrowserElement element)
         {
+            element.OrderIndex = this.Elements.Count + 1;
             this.Elements.Add(element);
         }
 
