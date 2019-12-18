@@ -4,6 +4,8 @@ Generate CEF Browser dynamic in RAGE-MP with C# on the server side
 
 Feel free to contribute and share your ideas or feature requests.
 
+THIS IS NOT READY FOR A PRODUCTIVE VERSION YET. 
+
 Wiki and further instructions will follow, as soon as a first showable version is present.
 
 Open the readme in RAW format or something simmilar to see the following better formatted.
