@@ -6,6 +6,7 @@ Feel free to contribute and share your ideas or feature requests.
 
 Wiki and further instructions will follow, as soon as a first showable version is present.
 
+Open the readme in RAW format or something simmilar to see the following better formatted.
 
 Starter Guide:
 1. Clone project
@@ -14,7 +15,7 @@ Starter Guide:
 4. Adjust project "DavWebCreate.Server" output path to point to your  "server-files/bridge/resources/DavWebBrowser". Now if the project was build, the .dll will be present in the resources folder.
 5. Now add a file called "meta.xml" to your "server-files/bridge/resources/DavWebBrowser" folder.
 6. Open the file in a text-editor and paste the following content in.
-
+  
 "<?xml version="1.0" encoding="utf-8"?>
 <meta>
   <info name = "DavWebCreator" author="Davidowiz" type="gamemode"/>
