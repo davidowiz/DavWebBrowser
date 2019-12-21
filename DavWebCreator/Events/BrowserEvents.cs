@@ -3,13 +3,12 @@ using Newtonsoft.Json;
 using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
 using System.Collections.Generic;
-using System.Linq;
-using DavWebCreator.Server.Models.Browser.Elements;
+using System.Reflection.Metadata;
 using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 using DavWebCreator.Server.ClientModels.Browser.Elements;
-using System;
-using DavWebCreator.Server.BrowserResponses;
 using DavWebCreator.Server.ClientModels.Browser.Elements.Events;
+using DavWebCreator.Server.Models.Browser.Elements;
+using DavWebCreator.Server.Models.Browser.Elements.Cards;
 
 namespace DavWebCreator.Events
 {
@@ -32,70 +31,58 @@ namespace DavWebCreator.Events
         [Command("b")]
         public void CreateExampleBrowser(Client player)
         {
-            Browser browser = new Browser("ExampleBrowser", BrowserType.Custom, Position.Mid_Left, "100%", "100%");
+            Browser browser = new Browser("ExampleBrowser", BrowserType.Custom, Position.Mid, "100%", "100%");
+            // Container
+            var card = new BrowserCard("Verdana", "16px", "black", true, "Login", "Write more content",
+                "The content prices having a peek right now. Login and see what the actual fish is going on there",
+                BrowserCardType.HeaderAndContent, BrowserElementType.Card, Position.Mid, "100%", "100%");
 
+            //var userNameTextBox = new BrowserTextBox(Position.Mid, "", "", "Username", false, "12px", "black", "Verdana",
+            //    BrowserTextAlign.center, false, 300, "90%", "30px");
+            //card.AddElement(userNameTextBox.Id);
+            //browser.AddElement(userNameTextBox);
 
-            //var loginContainer = new BrowserContainer(Position.Mid);
+            var passwordTextBox = new BrowserTextBox(Position.Mid, "asd", "asd", "sumnamus", false, "12px", "black", "Verdana",
+                BrowserTextAlign.center, false, 300, "90%", "30px");
+            card.AddElement(passwordTextBox.Id);
+            browser.AddElement(passwordTextBox);
 
+            var passwordTextBox2 = new BrowserTextBox(Position.Mid, "asd", "dsa", "passwordus", false, "12px", "black", "Verdana",
+                BrowserTextAlign.center, false, 300, "90%", "30px");
+            card.AddElement(passwordTextBox2.Id);
+            browser.AddElement(passwordTextBox2);
 
-            // The html elements are ordered in the same way you add them to the browser elements.
-            //browser.AddElement(new BrowserTitle(Position.Top_Left, "Hello", "42px", "Arial", true, "100%", "50px", "blue", BrowserTextAlign.center));
-            //browser.AddElement(new BrowserTitle(Position.Top_Mid, "Hello2", "32px", "Arial", false, "100%", "50px", "black", BrowserTextAlign.left));
-            //browser.AddElement(new BrowserTitle(Position.Top_Right, "Hello2", "32px", "Arial", false, "100%", "50px", "black", BrowserTextAlign.right));
-
-          
-
-            var checkBox = new BrowserCheckBox(Position.Top_Mid, "Are you fish?", true, "16px", "Arial", false, "16px", "16px", "red", BrowserTextAlign.left);
+            var checkBox = new BrowserCheckBox(Position.Mid, "Remember password?", true, "15px", "Verdana", false, "18px", "18px",
+                "black", BrowserTextAlign.center);
+            card.AddElement(checkBox.Id);
             browser.AddElement(checkBox);
-            var checkBox2 = new BrowserCheckBox(Position.Top_Mid, "Are you fis2h?", false, "16px", "Arial", false, "16px", "16px", "red", BrowserTextAlign.left);
-            browser.AddElement(checkBox2);
 
-            //browser.AddElement(new BrowserTitle(Position.Mid_Left, "Hello3", "16px", "Arial", false, "100%", "100px", "grey", BrowserTextAlign.center));
-            //browser.AddElement(new BrowserText(Position.Mid, "som long text that i should write but i have no clue what i should write so i will let my....",
-            //                        "12px", "Arial", true, "red", "100%", "100px", BrowserTextAlign.right));
+            // Lets add a button which will fire a event. Additionally you can add return objects.
+            var button = new BrowserButton(Position.Mid, "Confirm", "RandomEvent", "32px", "Verdana", "white", BrowserTextAlign.center, "100%",
+                "60px" , false, "pointer", "2px 2px 2px 2px", "2px 2px 2px 2px", "btn btn-primary");
 
-            //browser.AddElement(new BrowserTitle(Position.Mid_Right, "Hello", "42px", "Arial", true, "100%", "50px", "blue", BrowserTextAlign.right));
-            //browser.AddElement(new BrowserTitle(Position.Bottom_Left, "Hello2", "32px", "Arial", false, "100%", "50px", "black", BrowserTextAlign.center));
-            //browser.AddElement(new BrowserTitle(Position.Bottom_Mid, "Hello2", "32px", "Arial", false, "100%", "50px", "black", BrowserTextAlign.left));
-            //browser.AddElement(new BrowserTitle(Position.Bottom_Right, "Hello2", "32px", "Arial", false, "100%", "50px", "black", BrowserTextAlign.center));
+            //If the button click event will be fired, the following values will be returned. (ORDER = You give order = you get same order back)
+      
+            button.AddReturnObject(checkBox, ReturnType.Boolean); // Check IsChecked Value
+            button.AddReturnObject(passwordTextBox2); // Password Text Box Value
+            button.AddReturnObject(passwordTextBox); // Username Text Box Value 
 
-            var button = new BrowserButton(Position.Top_Mid, "Text", "TESORINIO", "32px", "Arial", "red", BrowserTextAlign.center, false);
-            button.AddReturnObject(checkBox, ReturnType.Boolean); // Convert to returnType not implemented yet. Currently everything that returns is a string
-            button.AddReturnObject(checkBox2, ReturnType.Boolean);
+            //button.AddReturnObject(userNameTextBox);
 
+            card.AddElement(button.Id);
             browser.AddElement(button);
 
-            //// Title
-            //    loginContainer.AddElement(new BrowserTitle(Position.Mid, "Hello", "12px", bold: true));
+            // Add the card to the browser elements.
+            browser.AddElement(card);
 
-            //    // Input fields
-            //    var userNameTextBox = new BrowserTextBox(Position.Mid, "type....", "Username", readOnly: false);
-            //    loginContainer.AddElement(userNameTextBox);
-
-            //    var passwordTextBox = new BrowserTextBox(Position.Bottom_Mid, "type...", "Password", readOnly: false);
-            //    loginContainer.AddElement(passwordTextBox);
-
-            //    // Remember Password
-            //    var rememberPasswordCheckBox = new BrowserCheckBox(Position.Bottom_Mid, "Remember password", false);
-            //    loginContainer.AddElement(rememberPasswordCheckBox);
-
-            //    // Login Button
-            //    var loginButton = new BrowserButton(Position.Bottom_Mid, "Einloggen", "12px", "LOGIN_REMOTE_EVENT");
-
-            //    // Click on the button will call the "LOGIN_REMOTE_EVENT" on the Server side and returns the following browser elements to the specifig type you define.
-            //    loginButton.AddReturnObject(userNameTextBox.Id, typeof(string));
-            //    loginButton.AddReturnObject(passwordTextBox.Id, typeof(string));
-            //    //loginButton.AddReturnObject(rememberPasswordCheckBox.Id, typeof(bool));
-
-            //    // Add the button to the container
-            //    loginContainer.AddElement(loginButton);
-
-            //// Add the login (div)Container to the Browser's elements
-            //browser.Elements.Add(loginContainer);
-
-            // Open CEF with desired width and height
-
+            // Open the just defined CEF Browser for the player.
             browser.OpenBrowser(player);
+
+
+
+
+            //browser.AddElement(new BrowserText(Position.Mid, "som long text that i should write but i have no clue what i should write so i will let my....",
+            //                        "12px", "Arial", true, "red", "100%", "100px", BrowserTextAlign.right));
         }
 
         [RemoteEvent("BROWSER_")]
@@ -106,26 +93,32 @@ namespace DavWebCreator.Events
             // Do stuff
         }
 
-        [RemoteEvent("BROWSER_TEST")]
-        public void TEST(Client player, string id)
+        [RemoteEvent("BROWSER_TEXT")]
+        public void TEST(Client player, params object[] args)
         {
-            player.SendChatMessage("Yo" + id);
+            foreach (var arg in args)
+            {
+                NAPI.Util.ConsoleOutput("DEBUG: " + arg.ToString());
+            }
 
             // Do stuff
         }
 
         
 
-        [RemoteEvent("TESORINIO")]
+        [RemoteEvent("RandomEvent")]
         public void ButtonClicked(Client player, object[] args)
         {
             var responses = JsonConvert.DeserializeObject<List<BrowserClickEventResponse>>(args[0].ToString());
 
-            var checkboxElement = responses[0];
-            var checkoxElement2 = responses[1];
+         
+            var usernameTextBox = responses[0];
+            var passwordTextBox = responses[1];
+            var checkboxElement = responses[2];
 
-            player.SendChatMessage("Checkbox 1 ist " + checkboxElement.Value);
-            player.SendChatMessage("Checkbox 2 ist " + checkoxElement2.Value);
+            player.SendChatMessage("Username ist " + usernameTextBox.Value);
+            player.SendChatMessage("Password ist " + passwordTextBox.Value);
+            //player.SendChatMessage("Checkbox 1 ist " + checkboxElement.Value);
         }
 
 

@@ -15,8 +15,8 @@ namespace Browsers.Models.BrowserModels.Elements
         public bool Bold { get; set; }
         public string Text { get; set; }
 
-        public BrowserButton(Position position, string text, string remoteEvent, string fontSize, string fontFamily, string color, BrowserTextAlign textAlign, bool bold = false)
-            :base(BrowserElementType.Button, position, remoteEvent)
+        public BrowserButton(Position position, string text, string remoteEvent, string fontSize, string fontFamily, string color, BrowserTextAlign textAlign, string width = "200px", string height = "160px", bool bold = false, string cursor = "pointer", string margin = "2px 2px 2px 2px", string padding = "2px 2px 2px 2px", string styleClasses = "")
+            :base(BrowserElementType.Button, position, remoteEvent ,false, cursor, styleClasses, width, height, margin,padding)
         {
             this.Text = text;
             this.FontFamily = fontFamily;
@@ -24,6 +24,8 @@ namespace Browsers.Models.BrowserModels.Elements
             this.Bold = bold;
             this.FontColor = color;
             this.TextAlign = textAlign;
+            this.Width = width;
+            this.Height = height;
         }
     }
 }

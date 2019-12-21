@@ -2,7 +2,7 @@
 {
     public enum ReturnType
     {
-        Text,
+        Text = 1,
         Integer,
         Double,
         Float,

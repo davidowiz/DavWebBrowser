@@ -15,6 +15,7 @@ namespace Browsers.Models.BrowserModels.Elements
         SubTitle,
         Text,
         Image,
-        Container
+        Container,
+        Card
     }
 }

@@ -8,6 +8,9 @@ namespace Browsers.Models.BrowserModels.Elements
         public string Title { get; set; }
         public string FontSize { get; set; }
         public bool Bold { get; set; }
+        /// <summary>
+        /// https://getbootstrap.com/docs/4.0/content/typography/
+        /// </summary>
         public string FontFamily { get; set; }
         public string FontColor { get; set; }
         public BrowserTextAlign TextAlign { get; set; }
@@ -18,14 +21,12 @@ namespace Browsers.Models.BrowserModels.Elements
 
         }
 
-        public BrowserTitle(Position position, string title, string fontSize, string fontFamily, bool bold, string width, string height, string fontColor, BrowserTextAlign textAlign)
-            : base(BrowserElementType.Title, position)
+        public BrowserTitle(Position position, string title, string fontSize, string fontFamily, bool bold, string width, string height, string fontColor, BrowserTextAlign textAlign, string styleClasses = "", string cursor ="pointer")
+            : base(BrowserElementType.Title, position, width, height, cursor, styleClasses)
         {
             this.Title = title;
             this.FontSize = fontSize;
             this.Bold = bold;
-            this.Width = width;
-            this.Height = height;
             this.FontFamily = fontFamily;
             this.FontColor = fontColor;
             this.TextAlign = textAlign;

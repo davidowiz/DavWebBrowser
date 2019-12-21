@@ -18,15 +18,18 @@ namespace DavWebCreator.Resources.Models.Browser.Elements
         public List<BrowserRemoteReturnObject> ReturnObjects { get; set; }
 
         public BrowserElementWithEvent(BrowserElementType type, Position position,
-            string remoteEvent, bool bold = false) : base(type, position)
+            string remoteEvent, bool bold = false, string cursor = "pointer", string styleClasses = "", string width = "120px", string height ="35px", string margin = "2px 2px 2px 2px", string padding = "2px 2px 2px 2px") : base(type, position, width, height, cursor, margin, padding,styleClasses)
         {
-            this.RemoteEvent = remoteEvent;
-    
-
+            this.RemoteEvent = remoteEvent;   
             this.ReturnObjects = new List<BrowserRemoteReturnObject>();
         }
         
-        public void AddReturnObject(BrowserElement element, ReturnType returnType)
+        /// <summary>
+        /// The passed elements will be later returned to the remote event, including the current value of the DOM (HTML) Element.
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="returnType"></param>
+        public void AddReturnObject(BrowserElement element, ReturnType returnType = ReturnType.Text)
         {
             this.ReturnObjects.Add(new BrowserRemoteReturnObject(element.Id, element.Type, returnType));
         }

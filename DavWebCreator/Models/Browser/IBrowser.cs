@@ -9,7 +9,9 @@ namespace Browsers.Models.BrowserModels
         Guid Id { get; set; }
         string Path { get; set; }
         BrowserType Type { get; set; }
-        List<BrowserElement> Elements { get; }
         Position Position { get; set; }
+        List<BrowserButton> Buttons { get; set; }
+        string Width { get; set; }
+        string Height { get; set; }
     }
 }
