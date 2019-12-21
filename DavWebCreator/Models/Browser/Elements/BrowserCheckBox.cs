@@ -15,7 +15,7 @@ namespace Browsers.Models.BrowserModels.Elements
         public bool IsChecked { get; set; }
         public BrowserTextAlign TextAlign { get; set; }
 
-        public BrowserCheckBox(Position position, string text, bool isChecked, string fontSize, string fontFamily, bool bold, string width, string height, BrowserTextAlign textAlign)
+        public BrowserCheckBox(Position position, string text, bool isChecked, string fontSize, string fontFamily, bool bold, string width, string height,string color, BrowserTextAlign textAlign)
             :base(BrowserElementType.Checkbox, position)
         {
             this.Text = text;
@@ -26,6 +26,8 @@ namespace Browsers.Models.BrowserModels.Elements
             this.Width = width;
             this.Height = height;
             this.TextAlign = textAlign;
+            this.FontColor = color;
+            this.FontFamily = fontFamily;
         }
     }
 }

@@ -41,7 +41,8 @@ namespace Browsers.Models.BrowserModels.Elements
             player.TriggerEvent("INITIALIZE_CEF_BROWSER", JsonConvert.SerializeObject(this),
                 JsonConvert.SerializeObject(this.Elements.Where(w => w.Type == BrowserElementType.Title)),
                 JsonConvert.SerializeObject(this.Elements.Where(w => w.Type == BrowserElementType.Text)),
-                JsonConvert.SerializeObject(this.Elements.Where(w => w.Type == BrowserElementType.Checkbox)));
+                JsonConvert.SerializeObject(this.Elements.Where(w => w.Type == BrowserElementType.Checkbox)),
+                JsonConvert.SerializeObject(this.Elements.Where(w=> w.Type == BrowserElementType.Button)));
         }
 
         public void AddElement(BrowserElement element)
