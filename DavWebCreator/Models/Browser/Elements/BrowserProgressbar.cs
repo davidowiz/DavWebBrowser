@@ -13,8 +13,8 @@ namespace DavWebCreator.Resources.Models.Browser.Elements
         public int MillesecondsProgressInterval { get; set; }
 
         public BrowserProgressbar(int minValue, int maxValue, int currentValue, int progressStep, int millisecondsProgressInterval,
-            string title, string fontSize, BrowserElementType type, Position position, string remoteEvent, bool bold = false) 
-                : base(type, position,remoteEvent, bold)
+            string title, string fontSize, BrowserElementType type, Position position, string remoteEvent) 
+                : base(type, position,remoteEvent)
         {
             this.MinValue = minValue;
             this.MaxValue = maxValue;

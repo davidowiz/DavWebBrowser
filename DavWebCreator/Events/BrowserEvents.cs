@@ -1,14 +1,13 @@
-﻿using GTANetworkAPI;
-using Newtonsoft.Json;
-using Browsers.Models.BrowserModels;
+﻿using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 using DavWebCreator.Server.ClientModels.Browser.Elements;
 using DavWebCreator.Server.ClientModels.Browser.Elements.Events;
 using DavWebCreator.Server.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Cards;
+using DavWebCreator.Server.Models.Browser.Elements.Fonts;
+using GTANetworkAPI;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace DavWebCreator.Events
 {
@@ -33,39 +32,45 @@ namespace DavWebCreator.Events
         {
             Browser browser = new Browser("ExampleBrowser", BrowserType.Custom, Position.Mid, "100%", "100%");
             // Container
-            var card = new BrowserCard("Verdana", "16px", "black", true, "Login", "Write more content",
-                "The content prices having a peek right now. Login and see what the actual fish is going on there",
-                BrowserCardType.HeaderAndContent, BrowserElementType.Card, Position.Mid, "100%", "100%");
+            BrowserCard card = new BrowserCard(Position.Mid, BrowserElementType.Card, BrowserCardType.HeaderAndContent,
+                "Login", "Write more content",
+                "The content prices having a peek right now. Login and see what the actual fish is going on there");
 
-            //var userNameTextBox = new BrowserTextBox(Position.Mid, "", "", "Username", false, "12px", "black", "Verdana",
-            //    BrowserTextAlign.center, false, 300, "90%", "30px");
-            //card.AddElement(userNameTextBox.Id);
-            //browser.AddElement(userNameTextBox);
+            card.Width = "600px";
+            card.Height = "400px";
+            card.TextAlign = BrowserTextAlign.center;
+            card.Margin = "0px 0px 5px 1px";
 
-            var passwordTextBox = new BrowserTextBox(Position.Mid, "asd", "asd", "sumnamus", false, "12px", "black", "Verdana",
-                BrowserTextAlign.center, false, 300, "90%", "30px");
-            card.AddElement(passwordTextBox.Id);
-            browser.AddElement(passwordTextBox);
+            BrowserTextBox usernameTextBox = new BrowserTextBox(Position.Mid, "type in username...", "", "Username", false);
+            
+            card.AddElement(usernameTextBox.Id);
+            browser.AddElement(usernameTextBox);
 
-            var passwordTextBox2 = new BrowserTextBox(Position.Mid, "asd", "dsa", "passwordus", false, "12px", "black", "Verdana",
-                BrowserTextAlign.center, false, 300, "90%", "30px");
+            BrowserTextBox passwordTextBox2 = new BrowserTextBox(Position.Mid, "type in password...", "", "Password", false);
             card.AddElement(passwordTextBox2.Id);
             browser.AddElement(passwordTextBox2);
 
-            var checkBox = new BrowserCheckBox(Position.Mid, "Remember password?", true, "15px", "Verdana", false, "18px", "18px",
+            BrowserTextBox passwordTextBox3 = new BrowserTextBox(Position.Mid, "placeholder...", "", "More input", false);
+            card.AddElement(passwordTextBox3.Id);
+            browser.AddElement(passwordTextBox3);
+
+            BrowserTextBox passwordTextBox5 = new BrowserTextBox(Position.Mid, "placeholder...", "", "Fisch", false);
+            card.AddElement(passwordTextBox5.Id);
+            browser.AddElement(passwordTextBox5);
+
+            BrowserCheckBox checkBox = new BrowserCheckBox(Position.Mid, "Remember password?", true, "15px", "Verdana", false, "18px", "18px",
                 "black", BrowserTextAlign.center);
             card.AddElement(checkBox.Id);
             browser.AddElement(checkBox);
 
             // Lets add a button which will fire a event. Additionally you can add return objects.
-            var button = new BrowserButton(Position.Mid, "Confirm", "RandomEvent", "32px", "Verdana", "white", BrowserTextAlign.center, "100%",
-                "60px" , false, "pointer", "2px 2px 2px 2px", "2px 2px 2px 2px", "btn btn-primary");
+            BrowserButton button = new BrowserButton(Position.Mid, "Confirm", "RandomEvent");
 
             //If the button click event will be fired, the following values will be returned. (ORDER = You give order = you get same order back)
-      
+
             button.AddReturnObject(checkBox, ReturnType.Boolean); // Check IsChecked Value
             button.AddReturnObject(passwordTextBox2); // Password Text Box Value
-            button.AddReturnObject(passwordTextBox); // Username Text Box Value 
+            button.AddReturnObject(usernameTextBox); // Username Text Box Value 
 
             //button.AddReturnObject(userNameTextBox);
 
@@ -96,7 +101,7 @@ namespace DavWebCreator.Events
         [RemoteEvent("BROWSER_TEXT")]
         public void TEST(Client player, params object[] args)
         {
-            foreach (var arg in args)
+            foreach (object arg in args)
             {
                 NAPI.Util.ConsoleOutput("DEBUG: " + arg.ToString());
             }
@@ -104,17 +109,17 @@ namespace DavWebCreator.Events
             // Do stuff
         }
 
-        
+
 
         [RemoteEvent("RandomEvent")]
         public void ButtonClicked(Client player, object[] args)
         {
-            var responses = JsonConvert.DeserializeObject<List<BrowserClickEventResponse>>(args[0].ToString());
+            List<BrowserClickEventResponse> responses = JsonConvert.DeserializeObject<List<BrowserClickEventResponse>>(args[0].ToString());
 
-         
-            var usernameTextBox = responses[0];
-            var passwordTextBox = responses[1];
-            var checkboxElement = responses[2];
+
+            BrowserClickEventResponse usernameTextBox = responses[0];
+            BrowserClickEventResponse passwordTextBox = responses[1];
+            BrowserClickEventResponse checkboxElement = responses[2];
 
             player.SendChatMessage("Username ist " + usernameTextBox.Value);
             player.SendChatMessage("Password ist " + passwordTextBox.Value);

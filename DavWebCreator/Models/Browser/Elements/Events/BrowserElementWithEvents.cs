@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using DavWebCreator.Server.ClientModels.Browser.Elements;
 using DavWebCreator.Server.ClientModels.Browser.Elements.Events;
+using DavWebCreator.Server.Models.Browser.Elements;
 
 namespace DavWebCreator.Resources.Models.Browser.Elements
 {
@@ -17,8 +18,8 @@ namespace DavWebCreator.Resources.Models.Browser.Elements
 
         public List<BrowserRemoteReturnObject> ReturnObjects { get; set; }
 
-        public BrowserElementWithEvent(BrowserElementType type, Position position,
-            string remoteEvent, bool bold = false, string cursor = "pointer", string styleClasses = "", string width = "120px", string height ="35px", string margin = "2px 2px 2px 2px", string padding = "2px 2px 2px 2px") : base(type, position, width, height, cursor, margin, padding,styleClasses)
+        public BrowserElementWithEvent(BrowserElementType type, Position position, string remoteEvent)
+            : base(type, position)
         {
             this.RemoteEvent = remoteEvent;   
             this.ReturnObjects = new List<BrowserRemoteReturnObject>();

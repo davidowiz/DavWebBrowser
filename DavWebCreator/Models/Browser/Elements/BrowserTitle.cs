@@ -1,4 +1,5 @@
 ﻿using DavWebCreator.Clients.ClientModels.Browser.Elements;
+using DavWebCreator.Server.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 
 namespace Browsers.Models.BrowserModels.Elements
@@ -21,8 +22,8 @@ namespace Browsers.Models.BrowserModels.Elements
 
         }
 
-        public BrowserTitle(Position position, string title, string fontSize, string fontFamily, bool bold, string width, string height, string fontColor, BrowserTextAlign textAlign, string styleClasses = "", string cursor ="pointer")
-            : base(BrowserElementType.Title, position, width, height, cursor, styleClasses)
+        public BrowserTitle(Position position, string title, string fontSize, string fontFamily, bool bold, string width, string height, string fontColor, BrowserTextAlign textAlign)
+            : base(BrowserElementType.Title, position)
         {
             this.Title = title;
             this.FontSize = fontSize;

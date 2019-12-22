@@ -16,6 +16,7 @@ namespace Browsers.Models.BrowserModels.Elements
         Text,
         Image,
         Container,
-        Card
+        Card,
+        Password
     }
 }

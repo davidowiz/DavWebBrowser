@@ -1,6 +1,7 @@
 ﻿using Browsers.Models.BrowserModels.Elements;
 using System;
 using System.Collections.Generic;
+using DavWebCreator.Server.Models.Browser.Elements;
 
 namespace Browsers.Models.BrowserModels
 {
@@ -12,6 +13,7 @@ namespace Browsers.Models.BrowserModels
         Position Position { get; set; }
         List<BrowserButton> Buttons { get; set; }
         string Width { get; set; }
+        BrowserGridLayout GridLayout { get; set; }
         string Height { get; set; }
     }
 }

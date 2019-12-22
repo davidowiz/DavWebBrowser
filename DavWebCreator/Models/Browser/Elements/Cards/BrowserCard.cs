@@ -23,12 +23,8 @@ namespace DavWebCreator.Server.Models.Browser.Elements
         public List<Guid> ChildElements { get; private set; }
 
 
-        public BrowserCard(string fontFamily, string fontSize, string fontColor, bool bold, string cardTitle, string contentTitle, string contentText, BrowserCardType cardType,BrowserElementType type, Position position, string width = "100px", string height = "30px", string cursor = "auto", string styleClasses = "") : base(type, position, width, height, cursor, styleClasses)
+        public BrowserCard(Position position, BrowserElementType type, BrowserCardType cardType, string cardTitle, string contentTitle, string contentText) : base(type, position)
         {
-            this.FontColor = fontColor;
-            this.FontSize = fontSize;
-            this.FontFamily = fontFamily;
-            this.Bold = bold;
             this.CardTitle = cardTitle;
             this.ContentTitle = contentTitle;
             this.ContentText = contentText;

@@ -1,4 +1,5 @@
 ﻿using System;
+using DavWebCreator.Server.Models.Browser.Elements;
 
 namespace Browsers.Models.BrowserModels.Elements
 {
@@ -7,6 +8,7 @@ namespace Browsers.Models.BrowserModels.Elements
         public Guid Id { get; set; }
         public int OrderIndex { get; set; }
         public BrowserElementType Type { get; set; }
+        public BrowserElementAnimationType AnimationType { get; set; }
         public Position Position { get; set; }
         public Guid Parent { get; set; }
         public string Width { get; set; }
@@ -21,26 +23,20 @@ namespace Browsers.Models.BrowserModels.Elements
         /// </summary>
         public string StyleClass { get; set; }
 
-        public BrowserElement()
-        {
-            Width = "100px";
-            Height = "100px";
-            LoadingIndicator = false;
-        }
 
-
-        public BrowserElement(BrowserElementType type, Position position, string width = "100px", string height = "30px", string cursor = "auto", string margin = "2px 2px 2px 2px", string padding = "2px 2px 2px 2px", string styleClasses = "")
+        public BrowserElement(BrowserElementType type, Position position)
         {
             this.Id = Guid.NewGuid();
             this.Type = type;
             this.Position = position;
             LoadingIndicator = false;
-            this.Width = width;
-            this.Height = height;
-            this.Cursor = cursor;
-            this.StyleClass = styleClasses;
-            this.Margin = margin;
-            this.Padding = padding;
+            this.Width = "100px";
+            this.Height = "30px";
+            this.Cursor = "auto";
+            this.Margin = "2px 2px 2px 2px";
+            this.Padding = "2px 2px 2px 2px";
+            this.StyleClass = "";
+            this.AnimationType = BrowserElementAnimationType.None;
         }
     }
 }

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DavWebCreator.Server.Models.Browser.Elements;
 
 namespace Browsers.Models.BrowserModels.Elements
 {
@@ -12,6 +13,7 @@ namespace Browsers.Models.BrowserModels.Elements
         public Guid Id { get; set; }
         public string Path { get; set; }
         public BrowserType Type { get; set; }
+        public BrowserGridLayout GridLayout {get; set; }
         public virtual List<BrowserButton> Buttons { get; set; }
         [JsonIgnore] 
         // Elements are seperated by position 

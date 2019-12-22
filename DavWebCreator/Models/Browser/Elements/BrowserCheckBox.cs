@@ -1,6 +1,7 @@
 ﻿using DavWebCreator.Clients.ClientModels.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 using System;
+using DavWebCreator.Server.Models.Browser.Elements;
 
 namespace Browsers.Models.BrowserModels.Elements
 {
@@ -15,7 +16,7 @@ namespace Browsers.Models.BrowserModels.Elements
         public bool IsChecked { get; set; }
         public BrowserTextAlign TextAlign { get; set; }
 
-        public BrowserCheckBox(Position position, string text, bool isChecked, string fontSize, string fontFamily, bool bold, string width, string height,string color, BrowserTextAlign textAlign)
+        public BrowserCheckBox(Position position, string text, bool isChecked, string fontSize, string fontFamily, bool bold, string width, string height,string color, BrowserTextAlign textAlign, BrowserElementAnimationType animationType = BrowserElementAnimationType.None)
             :base(BrowserElementType.Checkbox, position)
         {
             this.Text = text;
