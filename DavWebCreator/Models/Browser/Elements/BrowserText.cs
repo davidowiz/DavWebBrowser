@@ -28,5 +28,12 @@ namespace DavWebCreator.Server.Models.Browser.Elements
             this.Height = height;
             this.TextAlign = textAlign;
         }
+
+        public BrowserText(Position position, string text, BrowserTextAlign textAlign)
+            : base(BrowserElementType.Text, position)
+        {
+            this.Text = text;
+            this.TextAlign = textAlign;
+        }
     }
 }

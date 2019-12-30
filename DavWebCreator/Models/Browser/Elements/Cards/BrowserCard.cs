@@ -1,12 +1,11 @@
-﻿using Browsers.Models.BrowserModels;
+﻿using System;
+using System.Collections.Generic;
+using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
 using DavWebCreator.Clients.ClientModels.Browser.Elements;
-using DavWebCreator.Server.Models.Browser.Elements.Cards;
 using DavWebCreator.Server.Models.Browser.Elements.Fonts;
-using System;
-using System.Collections.Generic;
 
-namespace DavWebCreator.Server.Models.Browser.Elements
+namespace DavWebCreator.Server.Models.Browser.Elements.Cards
 {
     public class BrowserCard : BrowserElement, IBrowserFont
     {
@@ -14,6 +13,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements
         public string FontSize { get; set; }
         public string FontColor { get; set; }
         public bool Bold { get; set; }
+        public bool ExitButton { get; set; }
         public string ContentTitle { get; set; }
         public string ContentText { get; set; }
         public string CardTitle { get; set; }
@@ -30,6 +30,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements
             this.ContentText = contentText;
             this.ChildElements = new List<Guid>();
             this.CardType = cardType;
+            this.ExitButton = true;
         }
 
         public void AddElement(Guid id)

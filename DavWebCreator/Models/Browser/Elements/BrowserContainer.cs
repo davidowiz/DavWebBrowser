@@ -16,7 +16,6 @@ namespace Browsers.Models.BrowserModels.Elements
 
         public void AddElement(BrowserElement browserElement)
         {
-            browserElement.Parent = this.Id;
             this.Elements.Add(browserElement);
         }
     }

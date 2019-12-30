@@ -32,5 +32,11 @@ namespace Browsers.Models.BrowserModels.Elements
             this.FontColor = fontColor;
             this.TextAlign = textAlign;
         }
+        public BrowserTitle(Position position, string title, BrowserTextAlign textAlign)
+            : base(BrowserElementType.Title, position)
+        {
+            this.Title = title;
+            this.TextAlign = textAlign;
+        }
     }
 }

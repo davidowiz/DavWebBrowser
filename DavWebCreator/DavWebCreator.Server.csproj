@@ -12,8 +12,11 @@
     <Reference Include="BCrypt.Net-Core">
       <HintPath>..\..\rageroleplay\bridge\runtime\BCrypt.Net-Core.dll</HintPath>
     </Reference>
+    <Reference Include="Ben.Demystifier">
+      <HintPath>D:\ragemp\server-files\dotnet\runtime\Ben.Demystifier.dll</HintPath>
+    </Reference>
     <Reference Include="Bootstrapper">
-      <HintPath>..\..\rageroleplay\bridge\runtime\Bootstrapper.dll</HintPath>
+      <HintPath>D:\ragemp\server-files\dotnet\runtime\Bootstrapper.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\rageroleplay\bridge\runtime\Newtonsoft.Json.dll</HintPath>
@@ -31,7 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

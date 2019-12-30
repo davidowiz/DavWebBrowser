@@ -1,7 +1,7 @@
 ﻿using System;
-using DavWebCreator.Server.Models.Browser.Elements;
+using Browsers.Models.BrowserModels;
 
-namespace Browsers.Models.BrowserModels.Elements
+namespace DavWebCreator.Server.Models.Browser.Elements
 {
     public class BrowserElement
     {
@@ -10,7 +10,6 @@ namespace Browsers.Models.BrowserModels.Elements
         public BrowserElementType Type { get; set; }
         public BrowserElementAnimationType AnimationType { get; set; }
         public Position Position { get; set; }
-        public Guid Parent { get; set; }
         public string Width { get; set; }
         public string Height { get; set; }
         public string Margin { get; set; }
@@ -30,11 +29,11 @@ namespace Browsers.Models.BrowserModels.Elements
             this.Type = type;
             this.Position = position;
             LoadingIndicator = false;
-            this.Width = "100px";
-            this.Height = "30px";
-            this.Cursor = "auto";
-            this.Margin = "2px 2px 2px 2px";
-            this.Padding = "2px 2px 2px 2px";
+            //this.Width = "100px";
+            //this.Height = "30px";
+            //this.Cursor = "auto";
+            //this.Margin = "2px 2px 2px 2px";
+            //this.Padding = "2px 2px 2px 2px";
             this.StyleClass = "";
             this.AnimationType = BrowserElementAnimationType.None;
         }

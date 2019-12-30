@@ -1,11 +1,10 @@
-﻿using DavWebCreator.Resources.Models.Browser.Elements.Events;
-using Browsers.Models.BrowserModels;
+﻿using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
 using System;
 using System.Collections.Generic;
 using DavWebCreator.Server.ClientModels.Browser.Elements;
-using DavWebCreator.Server.ClientModels.Browser.Elements.Events;
 using DavWebCreator.Server.Models.Browser.Elements;
+using DavWebCreator.Server.Models.Browser.Elements.Events;
 
 namespace DavWebCreator.Resources.Models.Browser.Elements
 {
@@ -30,9 +29,9 @@ namespace DavWebCreator.Resources.Models.Browser.Elements
         /// </summary>
         /// <param name="element"></param>
         /// <param name="returnType"></param>
-        public void AddReturnObject(BrowserElement element, ReturnType returnType = ReturnType.Text)
+        public void AddReturnObject(BrowserElement element, string hiddenValue = "", ReturnType returnType = ReturnType.Text)
         {
-            this.ReturnObjects.Add(new BrowserRemoteReturnObject(element.Id, element.Type, returnType));
+            this.ReturnObjects.Add(new BrowserRemoteReturnObject(element.Id, hiddenValue, element.Type, returnType));
         }
     }
 }

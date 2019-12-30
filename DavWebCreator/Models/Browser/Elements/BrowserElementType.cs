@@ -1,22 +1,23 @@
 ﻿using System;
 
-namespace Browsers.Models.BrowserModels.Elements
+namespace DavWebCreator.Server.Models.Browser.Elements
 {
     [Serializable]
     public enum BrowserElementType
     {
         TextBox = 1,
-        Button,
-        Checkbox,
-        MultiSelection,
-        MultiDropDown,
-        Grid,
-        Title,
-        SubTitle,
-        Text,
-        Image,
-        Container,
-        Card,
-        Password
+        Button = 2,
+        Checkbox = 3,
+        DropDown = 4,
+        MultiDropDown = 5,
+        Grid = 5,
+        Title = 6,
+        SubTitle = 7,
+        Text = 8,
+        Image = 9,
+        Container = 10,
+        Card = 11,
+        Password = 20,
+        YesNoDialog = 21
     }
 }

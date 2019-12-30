@@ -9,8 +9,6 @@ namespace Browsers.Models.BrowserModels.Elements
     [Serializable]
     public class BrowserTextBox : BrowserElement, IBrowserFont
     {
-        private BrowserElementType textBox;
-
         public string PlaceHolder { get; set; }
         public string LabelText { get; set; }      
         public string Text { get; set; }
@@ -22,8 +20,8 @@ namespace Browsers.Models.BrowserModels.Elements
         public short MaxLength { get; set; }
         public BrowserTextAlign TextAlign { get; set; }
 
-        public BrowserTextBox(Position position, string placeHolder, string text, string labelText, bool readOnly)
-            :base(BrowserElementType.TextBox, position)
+        public BrowserTextBox(Position position, string placeHolder, string text, string labelText, bool readOnly, BrowserElementType elementType = BrowserElementType.TextBox)
+            :base(elementType, position)
         {
             this.PlaceHolder = placeHolder;
             this.LabelText = labelText;
@@ -31,13 +29,19 @@ namespace Browsers.Models.BrowserModels.Elements
             this.ReadOnly = readOnly;
             this.Bold = false;
             this.MaxLength = 50;
-            this.Width = "120px";
-            this.Height = "25ox";
+            //this.Width = "120px";
+            //this.Height = "30px";
             this.Cursor = "pointer";
             this.TextAlign = BrowserTextAlign.center;
             this.ReadOnly = false;
-            this.Width = "100%";
-            this.Height = "30px";
+            this.Width = "150px";
+            this.Height = "25px";
+            this.FontColor = "black";
+            this.FontFamily = "Verdana";
+            this.Bold = false;
+            this.FontSize = "12px";
+            this.Margin = "0 0 0 0";
+            this.Padding = "0 0 0 0";
         }
     }
 }

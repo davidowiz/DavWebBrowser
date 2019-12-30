@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DavWebCreator
+﻿namespace DavWebCreator.Server
 {
     public class Main
     {

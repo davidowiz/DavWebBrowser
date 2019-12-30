@@ -1,9 +1,7 @@
-﻿using Browsers.Models.BrowserModels.Elements;
+﻿using System;
 using DavWebCreator.Server.ClientModels.Browser.Elements;
-using DavWebCreator.Server.ClientModels.Browser.Elements.Events;
-using System;
 
-namespace DavWebCreator.Resources.Models.Browser.Elements.Events
+namespace DavWebCreator.Server.Models.Browser.Elements.Events
 {
     [Serializable]
     public class BrowserRemoteReturnObject
@@ -11,12 +9,14 @@ namespace DavWebCreator.Resources.Models.Browser.Elements.Events
         public Guid Id { get; set; }
         public BrowserElementType ElementType { get; set; }
         public ReturnType ReturnTypeOfRemoteEvent { get; set; }
+        public string HiddenValue { get; set; }
 
-        public BrowserRemoteReturnObject(Guid id, BrowserElementType elementType, ReturnType returnType)
+        public BrowserRemoteReturnObject(Guid id, string hiddenValue, BrowserElementType elementType, ReturnType returnType)
         {
             this.Id = id;
             this.ReturnTypeOfRemoteEvent = returnType;
             this.ElementType = elementType;
+            this.HiddenValue = hiddenValue;
         }
     }
 }
