@@ -18,6 +18,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements
         Container = 10,
         Card = 11,
         Password = 20,
-        YesNoDialog = 21
+        YesNoDialog = 21,
+        ProgressBar = 22
     }
 }

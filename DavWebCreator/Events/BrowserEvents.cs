@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
+using DavWebCreator.Resources.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser;
 using DavWebCreator.Server.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Cards;
@@ -20,6 +21,45 @@ namespace DavWebCreator.Server.Events
 
         }
 
+
+        [Command("progress")]
+        public void CreateExampleProgressBar(Client player)
+        {
+            Browser browser = new Browser("ExampleBrowser", BrowserType.Custom, Position.Mid, "100%", "100%");
+            // Container
+            BrowserCard card = new BrowserCard(Position.Mid, BrowserElementType.Card, BrowserCardType.HeaderAndContent,
+                "Login", "Write more content", "The content prices having a peek right now. Login and see what the actual fish is going on there");
+
+            card.Width = "600px";
+            card.Height = "350px";
+            card.TextAlign = BrowserTextAlign.center;
+            card.Margin = "0px 0px 5px 1px";
+
+            BrowserProgressBar progressBar = new BrowserProgressBar(0, 1, 1000, Position.Mid);
+            progressBar.ShowCurrentValue = true;
+
+            progressBar.ProgressBarFinishedEvent = (client, bar) =>
+            {
+                NAPI.Util.ConsoleOutput(player.Name + " TIMER FINISHED");
+            };
+
+            card.AddElement(progressBar.Id);
+            browser.AddElement(progressBar);
+
+
+            BrowserButton button = new BrowserButton(Position.Mid, "Confirm", "RandomEvent");
+            button.AnimationType = BrowserElementAnimationType.Rotation;
+
+
+            card.AddElement(button.Id);
+            browser.AddElement(button);
+
+            // Add the card to the browser elements.
+            browser.AddElement(card);
+
+            // Open the just defined CEF Browser for the player.
+            browser.OpenBrowser(player);
+        }
 
         /// <summary>
         /// Generates a example Drop Down CEF Browser
@@ -76,6 +116,8 @@ namespace DavWebCreator.Server.Events
             browser.OpenBrowser(player);
         }
 
+
+
         /// <summary>
         /// Generates a example login CEF Browser
         /// <div>
@@ -89,6 +131,9 @@ namespace DavWebCreator.Server.Events
         public void CreateExampleBrowser(Client player)
         {
             Browser browser = new Browser("ExampleBrowser", BrowserType.Custom, Position.Mid, "100%", "100%");
+            browser.Opacity = "0.5";
+            browser.CloseEvent = "BROWSER_CLOSED_EXAMPLE";
+
             // Container
             BrowserCard card = new BrowserCard(Position.Mid, BrowserElementType.Card, BrowserCardType.HeaderAndContent,
                 "Login", "Write more content", "The content prices having a peek right now. Login and see what the actual fish is going on there");
@@ -214,6 +259,11 @@ namespace DavWebCreator.Server.Events
             // Do stuff
         }
 
+        [RemoteEvent("BROWSER_CLOSED_EXAMPLE")]
+        public void BrowserCloseEvent(Client player)
+        {
+            player.SendChatMessage("Browser closed");
+        }
 
 
 
@@ -222,19 +272,15 @@ namespace DavWebCreator.Server.Events
         [RemoteEvent("RandomEvent")]
         public void ButtonClicked(Client player, object[] args)
         {
-            List<BrowserEventResponse> responses = JsonConvert.DeserializeObject<List<BrowserEventResponse>>(args[0].ToString());
+            List<BrowserEventResponse> responses =
+                JsonConvert.DeserializeObject<List<BrowserEventResponse>>(args[0].ToString());
 
             foreach (var resp in responses)
             {
                 player.SendChatMessage(resp.Value);
             }
-
         }
 
-
-        public void CloseBrowser()
-        {
-
-        }
+        
     }
 }

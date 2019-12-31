@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
+using DavWebCreator.Resources.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Components;
 using DavWebCreator.Server.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Cards;
@@ -23,15 +24,25 @@ namespace DavWebCreator.Server.Models.Browser
         public List<BrowserPasswordTextBox> PasswordTextBoxes { get; set; }
         public List<BrowserTitle> Titles { get; set; }
         public List<BrowserButton> Buttons { get; set; }
+        public List<BrowserProgressBar> ProgressBars { get; set; }
         public List<BrowserCard> Cards { get; set; }
         public List<BrowserCheckBox> CheckBoxes { get; set; }
         public List<BrowserDropDown> DropDowns { get; set; }
         public BrowserYesNoDialog YesNoDialog { get; private set; }
 
+        // Events
+        public string CloseEvent { get; set; }
+
+        // Stylesheet
         private int AddedElements = 0;
         public Position Position { get; set; }
         public string Width { get; set; }
         public string Height { get; set; }
+        public string BackgroundColor { get; set; }
+        /// <summary>
+        /// 0.0 - 1.0
+        /// </summary>
+        public string Opacity { get; set; }
 
         public Browser()
         {
@@ -51,6 +62,8 @@ namespace DavWebCreator.Server.Models.Browser
             this.Cards = new List<BrowserCard>();
             this.CheckBoxes = new List<BrowserCheckBox>();
             this.DropDowns = new List<BrowserDropDown>();
+            this.ProgressBars = new List<BrowserProgressBar>();
+
             this.Width = width;
             this.Height = height;
 
@@ -75,8 +88,15 @@ namespace DavWebCreator.Server.Models.Browser
 
         public void OpenBrowser(Client player)
         {
+            foreach (var progressBar in ProgressBars)
+            {
+                // Start timer to update progressBar
+                progressBar.UpdateCurrentValue(player);
+            }
+
             player.TriggerEvent("INITIALIZE_CEF_BROWSER", JsonConvert.SerializeObject(this));
         }
+
 
         public void AddElement(BrowserElement element)
         {
@@ -118,6 +138,10 @@ namespace DavWebCreator.Server.Models.Browser
                 case BrowserElementType.DropDown:
                     BrowserDropDown dropDown = element as BrowserDropDown;
                     DropDowns.Add(dropDown);
+                    break;
+                case BrowserElementType.ProgressBar:
+                    BrowserProgressBar progressBar = element as BrowserProgressBar;
+                    ProgressBars.Add(progressBar);
                     break;
                 default:
                     NAPI.Util.ConsoleOutput($"UNKNOWN ELEMENT OF TYPE {element.Type}");

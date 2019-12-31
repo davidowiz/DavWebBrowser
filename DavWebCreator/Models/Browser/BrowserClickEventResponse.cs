@@ -1,6 +1,6 @@
 ﻿using DavWebCreator.Server.Models.Browser.Elements;
 
-namespace DavWebCreator.Server.Events
+namespace DavWebCreator.Server.Models.Browser
 {
     public class BrowserEventResponse
     {
