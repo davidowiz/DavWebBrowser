@@ -5,6 +5,7 @@
         PictureTitleAndDescription = 1,
         HeaderAndContent,
         BodyOnly,
-        TitleSubHeaderAndDescription
+        TitleSubHeaderAndDescription,
+        HeaderDescriptionAndButtonWithIcon
     }
 }

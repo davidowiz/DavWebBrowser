@@ -17,8 +17,8 @@ namespace DavWebCreator.Resources.Models.Browser.Elements
 
         public List<BrowserRemoteReturnObject> ReturnObjects { get; set; }
 
-        public BrowserElementWithEvent(BrowserElementType type, Position position, string remoteEvent)
-            : base(type, position)
+        public BrowserElementWithEvent(BrowserElementType type, string remoteEvent)
+            : base(type)
         {
             this.RemoteEvent = remoteEvent;   
             this.ReturnObjects = new List<BrowserRemoteReturnObject>();

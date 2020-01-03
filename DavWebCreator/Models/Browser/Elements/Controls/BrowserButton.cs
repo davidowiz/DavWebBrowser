@@ -1,11 +1,14 @@
 ﻿using System;
 using Browsers.Models.BrowserModels;
-using DavWebCreator.Clients.ClientModels.Browser.Elements;
 using DavWebCreator.Resources.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 
 namespace DavWebCreator.Server.Models.Browser.Elements.Controls
 {
+    /// <summary>
+    /// Checkout the following link to see the available style classes.
+    /// https://getbootstrap.com/docs/4.0/components/buttons/
+    /// </summary>
     [Serializable]
     public class BrowserButton : BrowserElementWithEvent, IBrowserFont
     {
@@ -16,8 +19,8 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Controls
         public bool Bold { get; set; }
         public string Text { get; set; }
 
-        public BrowserButton(Position position, string text, string remoteEvent)
-            :base(BrowserElementType.Button, position, remoteEvent)
+        public BrowserButton(string text, string remoteEvent)
+            :base(BrowserElementType.Button, remoteEvent)
         {
             this.Text = text;
             this.TextAlign = BrowserTextAlign.center;

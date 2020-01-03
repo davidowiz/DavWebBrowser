@@ -26,5 +26,6 @@ namespace DavWebCreator.Server.Models.Browser
         List<BrowserCard> Cards { get; set; }
         List<BrowserCheckBox> CheckBoxes { get; set; }
         BrowserYesNoDialog YesNoDialog { get; }
+        List<BrowserButtonIcon> Icons { get; }
     }
 }

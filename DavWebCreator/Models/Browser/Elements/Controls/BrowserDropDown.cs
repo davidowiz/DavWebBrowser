@@ -14,10 +14,10 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Controls
 
         public List<BrowserDropDownValue> Values { get; set; }
 
-        public BrowserDropDown(Position position, string labelText) : base(BrowserElementType.DropDown, position)
+        public BrowserDropDown(string labelText) : base(BrowserElementType.DropDown)
         {
             this.Values = new List<BrowserDropDownValue>();
-            this.Label = new BrowserText(position, "", labelText, "", "Verdana", false, "black", "", "", BrowserTextAlign.center);
+            this.Label = new BrowserText("", labelText, BrowserTextAlign.center);
         }
 
         public void AddDropDownValue(string value, string hiddenValue)

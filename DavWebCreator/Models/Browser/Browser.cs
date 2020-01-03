@@ -7,6 +7,7 @@ using DavWebCreator.Server.Models.Browser.Components;
 using DavWebCreator.Server.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Cards;
 using DavWebCreator.Server.Models.Browser.Elements.Controls;
+using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 using DavWebCreator.Server.Models.Browser.Elements.Textboxes;
 using GTANetworkAPI;
 using Newtonsoft.Json;
@@ -29,6 +30,9 @@ namespace DavWebCreator.Server.Models.Browser
         public List<BrowserCheckBox> CheckBoxes { get; set; }
         public List<BrowserDropDown> DropDowns { get; set; }
         public BrowserYesNoDialog YesNoDialog { get; private set; }
+        public List<BrowserContainer> Container { get; private set; }
+        public BrowserBoxSelection BoxSelection { get; private set; }
+        public List<BrowserButtonIcon> Icons { get; private set; }
 
         // Events
         public string CloseEvent { get; set; }
@@ -63,6 +67,9 @@ namespace DavWebCreator.Server.Models.Browser
             this.CheckBoxes = new List<BrowserCheckBox>();
             this.DropDowns = new List<BrowserDropDown>();
             this.ProgressBars = new List<BrowserProgressBar>();
+            this.Container = new List<BrowserContainer>();
+            this.Icons = new List<BrowserButtonIcon>();
+
 
             this.Width = width;
             this.Height = height;
@@ -76,6 +83,9 @@ namespace DavWebCreator.Server.Models.Browser
                     this.Path = $"package://statics/DavWebCreator/Custom/Blank_Template.html";
                
                     break;
+                case BrowserType.Selection:
+                    this.Path = $"package://statics/DavWebCreator/Custom/Selection_Template.html";
+                    break;
             }
         }
 
@@ -84,6 +94,17 @@ namespace DavWebCreator.Server.Models.Browser
             BrowserYesNoDialog yesNoDialog = new BrowserYesNoDialog(Position.Mid, remoteEvent, title, subTitle, text, successButtonText, dismissButtonText);
             this.YesNoDialog = yesNoDialog;
         }
+
+
+        public void AddSelectionBoxes(string remoteEvent, string title)
+        {
+            this.BoxSelection = new BrowserBoxSelection();
+            this.BoxSelection.Title = new BrowserTitle(title, BrowserTextAlign.center);
+            this.BoxSelection.PrimaryCardButton = new BrowserButton("FirstBatton", "SUMEVENT");
+            this.BoxSelection.SecondaryCardButton = new BrowserButton("FirstBatton", "SUMEVENT");
+            this.Cards = new List<BrowserCard>();
+        }
+
         
 
         public void OpenBrowser(Client player)
@@ -101,8 +122,13 @@ namespace DavWebCreator.Server.Models.Browser
         public void AddElement(BrowserElement element)
         {
             element.OrderIndex = AddedElements++;
+            element.Position = this.Position;
             switch (element.Type)
             {
+                case BrowserElementType.BrowserBoxSelection:
+                    BrowserBoxSelection boxSelection = element as BrowserBoxSelection;
+
+                    break;
                 case BrowserElementType.Button:
                     BrowserButton button = element as BrowserButton;
                     Buttons.Add(button);
@@ -142,6 +168,14 @@ namespace DavWebCreator.Server.Models.Browser
                 case BrowserElementType.ProgressBar:
                     BrowserProgressBar progressBar = element as BrowserProgressBar;
                     ProgressBars.Add(progressBar);
+                    break;
+                case BrowserElementType.Container:
+                    BrowserContainer container = element as BrowserContainer;
+                    Container.Add(container);
+                    break;
+                case BrowserElementType.Icon:
+                    BrowserButtonIcon icon = element as BrowserButtonIcon;
+                    Icons.Add(icon);
                     break;
                 default:
                     NAPI.Util.ConsoleOutput($"UNKNOWN ELEMENT OF TYPE {element.Type}");

@@ -1,7 +1,6 @@
 ﻿using System;
 using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
-using DavWebCreator.Clients.ClientModels.Browser.Elements;
 using DavWebCreator.Resources.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Controls;
@@ -23,13 +22,13 @@ namespace DavWebCreator.Server.Models.Browser.Components
         public bool Bold { get; set; }
         public BrowserTextAlign TextAlign { get; set; }
 
-        public BrowserYesNoDialog(Position position, string remoteEvent, string title, string subTitle, string text, string successButtonText, string dismissButtonText) : base(BrowserElementType.YesNoDialog, position, remoteEvent)
+        public BrowserYesNoDialog(Position position, string remoteEvent, string title, string subTitle, string text, string successButtonText, string dismissButtonText) : base(BrowserElementType.YesNoDialog, remoteEvent)
         {
-            this.Title = new BrowserTitle(Position.Mid, title, BrowserTextAlign.center);
-            this.SubTitle = new BrowserTitle(Position.Mid, subTitle, BrowserTextAlign.center);
-            this.Text = new BrowserText(Position.Mid, text, BrowserTextAlign.center);
+            this.Title = new BrowserTitle(title, BrowserTextAlign.center);
+            this.SubTitle = new BrowserTitle(subTitle, BrowserTextAlign.center);
+            this.Text = new BrowserText(text, BrowserTextAlign.center);
 
-            this.SuccessButton = new BrowserButton(Position.Mid, successButtonText, remoteEvent);
+            this.SuccessButton = new BrowserButton(successButtonText, remoteEvent);
             this.SuccessButton.SetPredefinedButtonStyle(BrowserButtonStyle.Green);
             this.SuccessButton.Width = "150px";
             this.SuccessButton.Height = "40px";
@@ -37,7 +36,7 @@ namespace DavWebCreator.Server.Models.Browser.Components
             this.SuccessButton.Margin = "0 0 0 8px";
             this.SuccessButton.AddReturnObject(SuccessButton, "someHiddenValue");
 
-            this.DismissButton = new BrowserButton(Position.Mid, dismissButtonText, remoteEvent);
+            this.DismissButton = new BrowserButton(dismissButtonText, remoteEvent);
             this.DismissButton.SetPredefinedButtonStyle(BrowserButtonStyle.Red);
             this.DismissButton.Width = "150px";
             this.DismissButton.Height = "40px";

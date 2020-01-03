@@ -1,6 +1,4 @@
-﻿
-using DavWebCreator.Clients.ClientModels.Browser.Elements;
-using DavWebCreator.Server.Models.Browser.Elements.Fonts;
+﻿using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 using System;
 using DavWebCreator.Server.Models.Browser.Elements;
 
@@ -20,8 +18,8 @@ namespace Browsers.Models.BrowserModels.Elements
         public short MaxLength { get; set; }
         public BrowserTextAlign TextAlign { get; set; }
 
-        public BrowserTextBox(Position position, string placeHolder, string text, string labelText, bool readOnly, BrowserElementType elementType = BrowserElementType.TextBox)
-            :base(elementType, position)
+        public BrowserTextBox(string placeHolder, string text, string labelText, bool readOnly, BrowserElementType elementType = BrowserElementType.TextBox)
+            :base(elementType)
         {
             this.PlaceHolder = placeHolder;
             this.LabelText = labelText;

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
-using DavWebCreator.Clients.ClientModels.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 
 namespace DavWebCreator.Server.Models.Browser.Elements.Cards
@@ -19,11 +18,14 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Cards
         public string CardTitle { get; set; }
         public BrowserTextAlign TextAlign { get; set; }
         public BrowserCardType CardType { get; set; }
+        public BrowserContentAlign ItemsAlign { get; set; }
+        public string Image { get; set; }
+        public int CurrentRow { get; set; }
 
         public List<Guid> ChildElements { get; private set; }
 
 
-        public BrowserCard(Position position, BrowserElementType type, BrowserCardType cardType, string cardTitle, string contentTitle, string contentText) : base(type, position)
+        public BrowserCard(BrowserElementType type, BrowserCardType cardType, string cardTitle, string contentTitle, string contentText) : base(type)
         {
             this.CardTitle = cardTitle;
             this.ContentTitle = contentTitle;
@@ -31,11 +33,21 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Cards
             this.ChildElements = new List<Guid>();
             this.CardType = cardType;
             this.ExitButton = true;
+            this.CurrentRow = 1;
+            this.Row = 1;
+            this.Padding = "0 0 0 0";
+            this.Margin = "5px 0 5px 0";
         }
 
-        public void AddElement(Guid id)
+        public int AddElement(Guid id)
         {
             this.ChildElements.Add(id);
+            return CurrentRow;
+        }
+
+        public void NextRow()
+        {
+            CurrentRow++;
         }
 
 

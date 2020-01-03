@@ -19,6 +19,8 @@ namespace DavWebCreator.Server.Models.Browser.Elements
         Card = 11,
         Password = 20,
         YesNoDialog = 21,
-        ProgressBar = 22
+        ProgressBar = 22,
+        BrowserBoxSelection = 23,
+        Icon = 24
     }
 }

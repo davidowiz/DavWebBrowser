@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
-using Browsers.Models.BrowserModels;
+﻿using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
-using DavWebCreator.Resources.Models.Browser.Elements;
+using DavWebCreator.Server.Models;
 using DavWebCreator.Server.Models.Browser;
 using DavWebCreator.Server.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Cards;
 using DavWebCreator.Server.Models.Browser.Elements.Controls;
 using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 using DavWebCreator.Server.Models.Browser.Elements.Textboxes;
+using DavWebCreator.Server.Models.Dummys;
 using GTANetworkAPI;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace DavWebCreator.Server.Events
 {
@@ -22,33 +23,144 @@ namespace DavWebCreator.Server.Events
         }
 
 
+        [Command("card")]
+        public void CreateExampleBoxes(Client player)
+        {
+            List<VehicleDummy> vehicleDummys = new List<VehicleDummy>
+            {
+                new VehicleDummy(2, "Sultan RS6", 200, 100, 50, 60, true),
+                new VehicleDummy(3, "Lambo Diablo GT", 140, 20, 43, 50, false),
+                new VehicleDummy(4, "Banshee", 120, 30, 23, 45, false),
+                new VehicleDummy(5, "Glendale", 240, 70, 63, 85, true),
+                new VehicleDummy(6, "DavMobil", 240, 70, 63, 85, true),
+                new VehicleDummy(6, "DavMobil", 240, 70, 63, 85, true),
+                new VehicleDummy(6, "DavMobil", 240, 70, 63, 85, true),
+                new VehicleDummy(6, "DavMobil", 240, 70, 63, 85, true)
+            };
+
+            Browser browser = new Browser("Disdas", BrowserType.Selection, Position.Mid, "100%", "800px")
+            {
+                BackgroundColor = "white"
+            };
+
+            BrowserCard card = new BrowserCard(BrowserElementType.Card, BrowserCardType.HeaderAndContent,
+                "Garage", "", "")
+            {
+                Width = "90%",
+                Height = "800px",
+                TextAlign = BrowserTextAlign.left,
+                ItemsAlign = BrowserContentAlign.Start
+            };
+
+            browser.AddElement(card);
+            foreach (VehicleDummy dummy in vehicleDummys)
+            {
+                BrowserCard insideCard = new BrowserCard(BrowserElementType.Card, BrowserCardType.HeaderDescriptionAndButtonWithIcon,
+                    "", dummy.Name, "")
+                {
+                    TextAlign = BrowserTextAlign.left,
+                    Width = "16rem",
+                    Margin = "15px",
+                    Row = 1
+                };
+
+                //insideCard.Image = $"package://statics/DavWebCreator/Custom/Images/sumArt.png";
+
+                insideCard.Row = card.AddElement(insideCard.Id);
+
+                BrowserText browserText = new BrowserText($"Fuel: {dummy.Fuel}/{dummy.MaxFuel} Liter<br/>Kofferraumplatz: {dummy.CurrentWeight}/{dummy.MaxWeight}kg", BrowserTextAlign.left);
+                browserText.Margin = "0";
+                browserText.Padding = "0";
+                browserText.FontSize = "11px";
+
+                browserText.Row = insideCard.AddElement(browserText.Id);
+
+                //BrowserButton button = new BrowserButton("Ausparken", "ADDO");
+                BrowserButtonIcon icon = new BrowserButtonIcon("Ausparken", "CallMe");
+
+                icon.SetPredefinedButtonStyle(BrowserButtonIcon.BrowserIcon.ArrowDown);
+                icon.Row = insideCard.AddElement(icon.Id);
+
+                BrowserButtonIcon icon2 = new BrowserButtonIcon("Ausparken", "CallMe");
+
+                icon2.SetPredefinedButtonStyle(BrowserButtonIcon.BrowserIcon.ArrowUp);
+                icon2.Row = insideCard.AddElement(icon2.Id);
+
+                //if (dummy.ParkedIn)
+                //{
+                //    button.SetPredefinedButtonStyle(BrowserButtonStyle.Red_Outline);
+                //    button.Text = "Einparken";
+                //}
+                //else
+                //{
+                //    button.SetPredefinedButtonStyle(BrowserButtonStyle.Green_Outline);
+                //    button.Text = "Ausparken";
+                //}
+
+                //button.Row = insideCard.AddElement(button.Id);
+
+                browser.AddElement(insideCard);
+                browser.AddElement(browserText);
+                browser.AddElement(icon);
+                browser.AddElement(icon2);
+                //browser.AddElement(button);
+              
+            }
+
+            browser.OpenBrowser(player);
+        }
+
+        [Command("container")]
+        public void CreateExampleContainer(Client player)
+        {
+            Browser browser = new Browser("Disdas", BrowserType.Custom, Position.Mid, "100%", "100%");
+
+            BrowserContainer container = new BrowserContainer(Position.Mid)
+            {
+                BackGroundColor = "red"
+            };
+
+            BrowserText browserText = new BrowserText("yeas", "Yes", BrowserTextAlign.center);
+
+            browser.AddElement(browserText);
+            container.AddElement(browserText.Id);
+
+
+            browser.OpenBrowser(player);
+        }
+
         [Command("progress")]
         public void CreateExampleProgressBar(Client player)
         {
             Browser browser = new Browser("ExampleBrowser", BrowserType.Custom, Position.Mid, "100%", "100%");
             // Container
-            BrowserCard card = new BrowserCard(Position.Mid, BrowserElementType.Card, BrowserCardType.HeaderAndContent,
-                "Login", "Write more content", "The content prices having a peek right now. Login and see what the actual fish is going on there");
-
-            card.Width = "600px";
-            card.Height = "350px";
-            card.TextAlign = BrowserTextAlign.center;
-            card.Margin = "0px 0px 5px 1px";
-
-            BrowserProgressBar progressBar = new BrowserProgressBar(0, 1, 1000, Position.Mid);
-            progressBar.ShowCurrentValue = true;
-
-            progressBar.ProgressBarFinishedEvent = (client, bar) =>
+            BrowserCard card = new BrowserCard(BrowserElementType.Card, BrowserCardType.HeaderAndContent,
+                "Login", "Write more content", "The content prices having a peek right now. Login and see what the actual fish is going on there")
             {
-                NAPI.Util.ConsoleOutput(player.Name + " TIMER FINISHED");
+                Width = "600px",
+                Height = "350px",
+                TextAlign = BrowserTextAlign.center,
+                Margin = "0px 0px 5px 1px"
+            };
+
+            BrowserProgressBar progressBar = new BrowserProgressBar(0, 5, 1000)
+            {
+                ShowCurrentValue = true,
+
+                ProgressBarFinishedEvent = (client, progBar) =>
+                {
+                    NAPI.Util.ConsoleOutput(player.Name + " TIMER FINISHED");
+                }
             };
 
             card.AddElement(progressBar.Id);
+
             browser.AddElement(progressBar);
 
-
-            BrowserButton button = new BrowserButton(Position.Mid, "Confirm", "RandomEvent");
-            button.AnimationType = BrowserElementAnimationType.Rotation;
+            BrowserButton button = new BrowserButton("Confirm", "RandomEvent")
+            {
+                AnimationType = BrowserElementAnimationType.Rotation
+            };
 
 
             card.AddElement(button.Id);
@@ -75,33 +187,40 @@ namespace DavWebCreator.Server.Events
         {
             Browser browser = new Browser("ExampleBrowser", BrowserType.Custom, Position.Mid, "100%", "100%");
             // Container
-            BrowserCard card = new BrowserCard(Position.Mid, BrowserElementType.Card, BrowserCardType.HeaderAndContent,
-                "Login", "Write more content", "The content prices having a peek right now. Login and see what the actual fish is going on there");
+            BrowserCard card = new BrowserCard(BrowserElementType.Card, BrowserCardType.HeaderAndContent,
+                "Login", "Write more content", "The content prices having a peek right now. Login and see what the actual fish is going on there")
+            {
+                Width = "600px",
+                Height = "350px",
+                TextAlign = BrowserTextAlign.center,
+                Margin = "0px 0px 5px 1px"
+            };
 
-            card.Width = "600px";
-            card.Height = "350px";
-            card.TextAlign = BrowserTextAlign.center;
-            card.Margin = "0px 0px 5px 1px";
-
-            BrowserTextBox usernameTextBox = new BrowserTextBox(Position.Mid, "type in username...", "", "Username", false);
-            usernameTextBox.TextAlign = BrowserTextAlign.center;
-            usernameTextBox.Width = "180px";
-            usernameTextBox.Margin = "0 5% 0 0";
+            BrowserTextBox usernameTextBox = new BrowserTextBox("type in username...", "", "Username", false)
+            {
+                TextAlign = BrowserTextAlign.center,
+                Width = "180px",
+                Margin = "0 5% 0 0"
+            };
 
             card.AddElement(usernameTextBox.Id);
             browser.AddElement(usernameTextBox);
 
-            BrowserPasswordTextBox passwordTextBox = new BrowserPasswordTextBox(Position.Mid, "placeholder...", "sumthing", "Fisch", false, false);
-            passwordTextBox.MinLength = 6;
-            passwordTextBox.IsRequired = true;
-            passwordTextBox.Width = "180px";
-            passwordTextBox.Margin = "0 0 0 5%";
+            BrowserPasswordTextBox passwordTextBox = new BrowserPasswordTextBox("placeholder...", "sumthing", "Fisch", false, false)
+            {
+                MinLength = 6,
+                IsRequired = true,
+                Width = "180px",
+                Margin = "0 0 0 5%"
+            };
 
             card.AddElement(passwordTextBox.Id);
             browser.AddElement(passwordTextBox);
 
-            BrowserButton button = new BrowserButton(Position.Mid, "Confirm", "RandomEvent");
-            button.AnimationType = BrowserElementAnimationType.HeartBeat;
+            BrowserButton button = new BrowserButton("Confirm", "RandomEvent")
+            {
+                AnimationType = BrowserElementAnimationType.HeartBeat
+            };
 
             button.AddReturnObject(usernameTextBox, "hiddenval");
             button.AddReturnObject(passwordTextBox, "anoterHittenValue");
@@ -130,45 +249,53 @@ namespace DavWebCreator.Server.Events
         [Command("examplelogin")]
         public void CreateExampleBrowser(Client player)
         {
-            Browser browser = new Browser("ExampleBrowser", BrowserType.Custom, Position.Mid, "100%", "100%");
-            browser.Opacity = "0.5";
-            browser.CloseEvent = "BROWSER_CLOSED_EXAMPLE";
+            Browser browser = new Browser("ExampleBrowser", BrowserType.Custom, Position.Mid, "100%", "100%")
+            {
+                Opacity = "0.5",
+                CloseEvent = "BROWSER_CLOSED_EXAMPLE"
+            };
 
             // Container
-            BrowserCard card = new BrowserCard(Position.Mid, BrowserElementType.Card, BrowserCardType.HeaderAndContent,
-                "Login", "Write more content", "The content prices having a peek right now. Login and see what the actual fish is going on there");
+            BrowserCard card = new BrowserCard(BrowserElementType.Card, BrowserCardType.HeaderAndContent,
+                "Login", "Write more content", "The content prices having a peek right now. Login and see what the actual fish is going on there")
+            {
+                Width = "580px",
+                Height = "360px",
+                TextAlign = BrowserTextAlign.center,
+                Margin = "0px 0px 5px 1px"
+            };
 
-            card.Width = "600px";
-            card.Height = "360px";
-            card.TextAlign = BrowserTextAlign.center;
-            card.Margin = "0px 0px 5px 1px";
-
-            BrowserTextBox usernameTextBox = new BrowserTextBox(Position.Mid, "type in username...", "", "Username", false);
-            usernameTextBox.TextAlign = BrowserTextAlign.center;
-            usernameTextBox.Width = "180px";
-            usernameTextBox.Margin = "0 5% 0 0";
+            BrowserTextBox usernameTextBox = new BrowserTextBox("type in username...", "", "Username", false)
+            {
+                TextAlign = BrowserTextAlign.center,
+                Width = "180px",
+                Margin = "0 5% 0 0"
+            };
 
             card.AddElement(usernameTextBox.Id);
             browser.AddElement(usernameTextBox);
 
-            BrowserPasswordTextBox passwordTextBox = new BrowserPasswordTextBox(Position.Mid, "placeholder...", "sumthing", "Fisch", false, false);
-            passwordTextBox.MinLength = 6;
-            passwordTextBox.IsRequired = true;
-            passwordTextBox.Width = "180px";
-            passwordTextBox.Margin = "0 0 0 5%";
+            BrowserPasswordTextBox passwordTextBox = new BrowserPasswordTextBox("placeholder...", "sumthing", "Fisch", false, false)
+            {
+                MinLength = 6,
+                IsRequired = true,
+                Width = "180px",
+                Margin = "0 0 0 5%"
+            };
 
             card.AddElement(passwordTextBox.Id);
             browser.AddElement(passwordTextBox);
 
-            BrowserCheckBox checkBox = new BrowserCheckBox(Position.Mid, "Remember password?", true, "15px", "Verdana", false, "18px", "18px",
-                "black", BrowserTextAlign.center);
-
-            checkBox.Margin = "15px 0 15px 0";
+            BrowserCheckBox checkBox = new BrowserCheckBox("Remember password?", true, "15px", "Verdana", false, "18px", "18px",
+                "black", BrowserTextAlign.center)
+            {
+                Margin = "15px 0 15px 0"
+            };
             card.AddElement(checkBox.Id);
             browser.AddElement(checkBox);
 
             //// Lets add a button which will fire a event. Additionally you can add return objects.
-            BrowserButton button = new BrowserButton(Position.Mid, "Confirm", "RandomEvent");
+            BrowserButtonIcon button = new BrowserButtonIcon("Confirm", "RandomEvent");
             //button.AnimationType = BrowserElementAnimationType.HeartBeat;
 
 
@@ -201,7 +328,7 @@ namespace DavWebCreator.Server.Events
         public void YesNoDialogExample(Client player)
         {
             Browser browser = new Browser("YesNoDialog", BrowserType.YesNoDialog, Position.Mid, "100%", "100%");
-    
+
             browser.AddYesNoDialog("YES_NO_EXAMPLE", "Character Deletion", "WARNING", "Do you really want to delete your character?",
                 "Yes", "No");
 
@@ -218,7 +345,7 @@ namespace DavWebCreator.Server.Events
             List<BrowserEventResponse> responses = JsonConvert.DeserializeObject<List<BrowserEventResponse>>(args[0].ToString());
 
 
-            var buttonResponse = responses[0];
+            BrowserEventResponse buttonResponse = responses[0];
 
             player.SendChatMessage(buttonResponse.Value + " Clicked");
 
@@ -275,12 +402,12 @@ namespace DavWebCreator.Server.Events
             List<BrowserEventResponse> responses =
                 JsonConvert.DeserializeObject<List<BrowserEventResponse>>(args[0].ToString());
 
-            foreach (var resp in responses)
+            foreach (BrowserEventResponse resp in responses)
             {
                 player.SendChatMessage(resp.Value);
             }
         }
 
-        
+
     }
 }

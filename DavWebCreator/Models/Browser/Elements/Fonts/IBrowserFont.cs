@@ -1,6 +1,4 @@
-﻿using DavWebCreator.Server.Models.Browser.Elements.Fonts;
-
-namespace DavWebCreator.Clients.ClientModels.Browser.Elements
+﻿namespace DavWebCreator.Server.Models.Browser.Elements.Fonts
 {
     public interface IBrowserFont
     {

@@ -1,7 +1,6 @@
 ﻿using System;
 using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
-using DavWebCreator.Clients.ClientModels.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 
 namespace DavWebCreator.Server.Models.Browser.Elements.Textboxes
@@ -23,8 +22,8 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Textboxes
         public short MinLength { get; set; }
         public BrowserTextAlign TextAlign { get; set; }
 
-        public BrowserPasswordTextBox(Position position, string placeHolder, string text, string labelText, bool readOnly, bool isRequired)
-            : base(BrowserElementType.Password, position)
+        public BrowserPasswordTextBox(string placeHolder, string text, string labelText, bool readOnly, bool isRequired)
+            : base(BrowserElementType.Password)
         {
             this.PlaceHolder = placeHolder;
             this.LabelText = labelText;

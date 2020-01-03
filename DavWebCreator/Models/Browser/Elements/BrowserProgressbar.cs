@@ -26,9 +26,8 @@ namespace DavWebCreator.Server.Models.Browser.Elements
         [JsonIgnore]
         public ProgressBarFinished ProgressBarFinishedEvent;
 
-        public BrowserProgressBar(int currentValue, int progressStep, int millisecondsProgressInterval,
-            Position position)
-                : base(BrowserElementType.ProgressBar, position, "")
+        public BrowserProgressBar(int currentValue, int progressStep, int millisecondsProgressInterval)
+                : base(BrowserElementType.ProgressBar, "")
         {
             this.MinValue = 0;
             this.MaxValue = 100;

@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using DavWebCreator.Server.Models.Browser.Elements;
+using Browsers.Models.BrowserModels;
 
-namespace Browsers.Models.BrowserModels.Elements
+namespace DavWebCreator.Server.Models.Browser.Elements
 {
     [Serializable]
     public class BrowserContainer : BrowserElement
     {
-        public List<BrowserElement> Elements { get; set; }
+        public List<Guid> Elements { get; set; }
+
         public BrowserContainer(Position position)
-            : base(BrowserElementType.Container, position)
+            : base(BrowserElementType.Container)
         {
-            Elements = new List<BrowserElement>();
+            Elements = new List<Guid>();
         }
 
-        public void AddElement(BrowserElement browserElement)
+        public void AddElement(Guid elementId)
         {
-            this.Elements.Add(browserElement);
+            this.Elements.Add(elementId);
         }
     }
 }

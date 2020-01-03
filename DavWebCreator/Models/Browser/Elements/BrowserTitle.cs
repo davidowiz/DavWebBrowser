@@ -1,8 +1,7 @@
-﻿using DavWebCreator.Clients.ClientModels.Browser.Elements;
-using DavWebCreator.Server.Models.Browser.Elements;
+﻿using Browsers.Models.BrowserModels;
 using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 
-namespace Browsers.Models.BrowserModels.Elements
+namespace DavWebCreator.Server.Models.Browser.Elements
 {
     public class BrowserTitle : BrowserElement, IBrowserFont
     {
@@ -17,13 +16,13 @@ namespace Browsers.Models.BrowserModels.Elements
         public BrowserTextAlign TextAlign { get; set; }
 
         public BrowserTitle()
-            : base(BrowserElementType.Title, Position.Mid)
+            : base(BrowserElementType.Title)
         {
 
         }
 
-        public BrowserTitle(Position position, string title, string fontSize, string fontFamily, bool bold, string width, string height, string fontColor, BrowserTextAlign textAlign)
-            : base(BrowserElementType.Title, position)
+        public BrowserTitle(string title, string fontSize, string fontFamily, bool bold, string width, string height, string fontColor, BrowserTextAlign textAlign)
+            : base(BrowserElementType.Title)
         {
             this.Title = title;
             this.FontSize = fontSize;
@@ -32,8 +31,8 @@ namespace Browsers.Models.BrowserModels.Elements
             this.FontColor = fontColor;
             this.TextAlign = textAlign;
         }
-        public BrowserTitle(Position position, string title, BrowserTextAlign textAlign)
-            : base(BrowserElementType.Title, position)
+        public BrowserTitle(string title, BrowserTextAlign textAlign)
+            : base(BrowserElementType.Title)
         {
             this.Title = title;
             this.TextAlign = textAlign;
