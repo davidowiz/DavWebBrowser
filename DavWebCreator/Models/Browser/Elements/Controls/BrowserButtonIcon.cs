@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Browsers.Models.BrowserModels;
 using DavWebCreator.Resources.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Fonts;
@@ -19,7 +20,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Controls
         public bool Bold { get; set; }
         public string Text { get; set; }
 
-        public BrowserButtonIcon(string text, string remoteEvent)
+        public BrowserButtonIcon(string text, string remoteEvent, BrowserIcon icon)
             :base(BrowserElementType.Icon, remoteEvent)
         {
             this.Text = text;
@@ -27,7 +28,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Controls
             this.Width = "30px";
             this.Height = "30px";
             this.Cursor = "pointer";
-            this.SetPredefinedButtonStyle(BrowserIcon.ArrowDown);
+            SetPredefinedButtonStyle(icon);
         }
 
         public void SetPredefinedButtonStyle(BrowserIcon style)
@@ -43,10 +44,35 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Controls
             }
         }
 
-        public enum BrowserIcon
+        public void SetSize(BrowserIconSize size)
         {
-            ArrowUp = 1,
-            ArrowDown = 2
+            if (size.ToString().First() == 'd')
+            {
+                this.StyleClass += " fa-" + size.ToString().Remove(0,1);
+            }
+            else
+            {
+                this.StyleClass += " fa-" + size.ToString();
+            }
+          
         }
+    }
+
+    public enum BrowserIconSize
+    {
+        xs = 1,
+        sm,
+        lg,
+        d2x,
+        d3x,
+        d5x,
+        d7x,
+        d10x
+    }
+
+    public enum BrowserIcon
+    {
+        ArrowUp = 1,
+        ArrowDown = 2
     }
 }

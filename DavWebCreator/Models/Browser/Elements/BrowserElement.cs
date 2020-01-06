@@ -20,6 +20,8 @@ namespace DavWebCreator.Server.Models.Browser.Elements
         public string Opacity { get; set; }
         public string StyleClass { get; set; }
         public int Row { get; set; }
+        public bool ScrollBarY { get; set; }
+        public bool ScrollBarX { get; set; }
 
 
         protected BrowserElement(BrowserElementType type)
@@ -30,6 +32,8 @@ namespace DavWebCreator.Server.Models.Browser.Elements
             this.StyleClass = "";
             this.AnimationType = BrowserElementAnimationType.None;
             this.Row = 1;
+            this.ScrollBarX = false;
+            this.ScrollBarY = false;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Cards
         public List<Guid> ChildElements { get; private set; }
 
 
-        public BrowserCard(BrowserElementType type, BrowserCardType cardType, string cardTitle, string contentTitle, string contentText) : base(type)
+        public BrowserCard(BrowserCardType cardType, string cardTitle, string contentTitle, string contentText) : base(BrowserElementType.Card)
         {
             this.CardTitle = cardTitle;
             this.ContentTitle = contentTitle;
@@ -37,6 +37,8 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Cards
             this.Row = 1;
             this.Padding = "0 0 0 0";
             this.Margin = "5px 0 5px 0";
+            this.ScrollBarX = false;
+            this.ScrollBarY = false;
         }
 
         public int AddElement(Guid id)

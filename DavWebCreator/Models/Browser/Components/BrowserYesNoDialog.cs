@@ -22,7 +22,7 @@ namespace DavWebCreator.Server.Models.Browser.Components
         public bool Bold { get; set; }
         public BrowserTextAlign TextAlign { get; set; }
 
-        public BrowserYesNoDialog(Position position, string remoteEvent, string title, string subTitle, string text, string successButtonText, string dismissButtonText) : base(BrowserElementType.YesNoDialog, remoteEvent)
+        public BrowserYesNoDialog(string remoteEvent, string title, string subTitle, string text, string successButtonText, string dismissButtonText) : base(BrowserElementType.YesNoDialog, remoteEvent)
         {
             this.Title = new BrowserTitle(title, BrowserTextAlign.center);
             this.SubTitle = new BrowserTitle(subTitle, BrowserTextAlign.center);

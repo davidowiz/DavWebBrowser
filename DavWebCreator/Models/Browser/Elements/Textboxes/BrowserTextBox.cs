@@ -31,7 +31,7 @@ namespace Browsers.Models.BrowserModels.Elements
             //this.Height = "30px";
             this.Cursor = "pointer";
             this.TextAlign = BrowserTextAlign.center;
-            this.ReadOnly = false;
+            this.ReadOnly = readOnly;
             this.Width = "150px";
             this.Height = "25px";
             this.FontColor = "black";

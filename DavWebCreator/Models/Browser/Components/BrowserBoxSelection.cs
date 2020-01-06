@@ -21,7 +21,7 @@ namespace DavWebCreator.Server.Models.Browser.Components
 
         public void AddCard(string cardTitle, string cardContent)
         {
-            var card = new BrowserCard(BrowserElementType.Card, BrowserCardType.HeaderDescriptionAndButtonWithIcon, "", cardTitle, cardContent);
+            var card = new BrowserCard(BrowserCardType.HeaderDescriptionAndButtonWithIcon, "", cardTitle, cardContent);
 
             this.Cards.Add(card);
         }

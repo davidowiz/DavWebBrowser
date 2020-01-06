@@ -42,6 +42,8 @@ namespace DavWebCreator.Server.Models.Browser
         public Position Position { get; set; }
         public string Width { get; set; }
         public string Height { get; set; }
+        public bool ScrollBarY { get; set; }
+        public bool ScrollBarX { get; set; }
         public string BackgroundColor { get; set; }
         /// <summary>
         /// 0.0 - 1.0
@@ -70,7 +72,8 @@ namespace DavWebCreator.Server.Models.Browser
             this.Container = new List<BrowserContainer>();
             this.Icons = new List<BrowserButtonIcon>();
 
-
+            this.ScrollBarX = false;
+            this.ScrollBarY = false;
             this.Width = width;
             this.Height = height;
 
@@ -91,7 +94,7 @@ namespace DavWebCreator.Server.Models.Browser
 
         public void AddYesNoDialog(string remoteEvent, string title, string subTitle, string text, string successButtonText, string dismissButtonText)
         {
-            BrowserYesNoDialog yesNoDialog = new BrowserYesNoDialog(Position.Mid, remoteEvent, title, subTitle, text, successButtonText, dismissButtonText);
+            BrowserYesNoDialog yesNoDialog = new BrowserYesNoDialog(remoteEvent, title, subTitle, text, successButtonText, dismissButtonText);
             this.YesNoDialog = yesNoDialog;
         }
 
