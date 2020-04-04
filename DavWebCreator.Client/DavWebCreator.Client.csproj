@@ -1,0 +1,146 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Authors>Davidowiz</Authors>
+    <Product>DavWebCreator.Client</Product>
+    <Description>Handles the communication between the DavWebCreator.Server and the RageMP CEF browser.
+
+Requires the "DavWebCreator.Server" package to run.</Description>
+    <Copyright>@Davidowiz</Copyright>
+    <NeutralLanguage>English</NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <AssemblyVersion>1.0.0.5</AssemblyVersion>
+    <FileVersion>1.0.0.5</FileVersion>
+    <Version>1.0.5</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>D:\ragemp\server-files\client_packages\cs_packages\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ClientModels\**" />
+    <Compile Remove="Events\**" />
+    <Compile Remove="Models - Kopieren\**" />
+    <EmbeddedResource Remove="ClientModels\**" />
+    <EmbeddedResource Remove="Events\**" />
+    <EmbeddedResource Remove="Models - Kopieren\**" />
+    <None Remove="ClientModels\**" />
+    <None Remove="Events\**" />
+    <None Remove="Models - Kopieren\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="BrowserEvents.cs" />
+    <Compile Include="Models\Browser\Browser.cs" />
+    <Compile Include="Models\Browser\BrowserType.cs" />
+    <Compile Include="Models\Browser\Components\BrowserBoxSelection.cs" />
+    <Compile Include="Models\Browser\Components\BrowserYesNoDialog.cs" />
+    <Compile Include="Models\Browser\Elements\BorderStyle.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserContentAlign.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserFlexDirection.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserFlexWrap.cs" />
+    <Compile Include="Models\Browser\Elements\Controls\BrowserButtonIcon.cs" />
+    <Compile Include="Models\Browser\Elements\Controls\BrowserButton.cs" />
+    <Compile Include="Models\Browser\Elements\Controls\BrowserImage.cs" />
+    <Compile Include="Models\Browser\Elements\Controls\BrowserCheckBox.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserCommunication\OnClickReturn.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserContainer.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserElement.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserElementAnimationType.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserElementType.cs" />
+    <Compile Include="Models\Browser\Elements\Controls\BrowserDropDown.cs" />
+    <Compile Include="Models\Browser\Elements\Controls\BrowserDropDownValue.cs" />
+    <Compile Include="Models\Browser\Elements\Textboxes\BrowserPasswordTextBox.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserProgressbar.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserText.cs" />
+    <Compile Include="Models\Browser\Elements\BrowserTitle.cs" />
+    <Compile Include="Models\Browser\Elements\Cards\BrowserCard.cs" />
+    <Compile Include="Models\Browser\Elements\Cards\BrowserCardType.cs" />
+    <Compile Include="Models\Browser\Elements\Events\BrowserClickEventResponse.cs" />
+    <Compile Include="Models\Browser\Elements\Events\BrowserElementWithEvents.cs" />
+    <Compile Include="Models\Browser\Elements\Events\BrowserRemoteReturnObject.cs" />
+    <Compile Include="Models\Browser\Elements\Events\IBrowserEvents.cs" />
+    <Compile Include="Models\Browser\Elements\Fonts\BrowserTextAlign.cs" />
+    <Compile Include="Models\Browser\Elements\Fonts\IBrowserFont.cs" />
+    <Compile Include="Models\Browser\Elements\Events\ReturnType.cs" />
+    <Compile Include="Models\Browser\Elements\Textboxes\BrowserTextBox.cs" />
+    <Compile Include="Models\Browser\IBrowser.cs" />
+    <Compile Include="Models\Browser\Position.cs" />
+    <Compile Include="Models\Browser\Stylesheets\Stlyesheet.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Json.Net" Version="1.0.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Users\Blysc\source\repos\rageroleplay\bridge\runtime\Newtonsoft.Json.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="rage-sharp">
+      <HintPath>C:\Users\Blysc\source\repos\rageroleplay\bridge\runtime\rage-sharp.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="client_packages\DavWebCreator\Blank_Template.html" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap-grid.css" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap-grid.css.map" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap-grid.min.css" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap-grid.min.css.map" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap-reboot.css" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap-reboot.css.map" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap-reboot.min.css" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap-reboot.min.css.map" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap.css" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap.css.map" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap.min.css" />
+    <None Include="client_packages\DavWebCreator\css\bootstrap.min.css.map" />
+    <None Include="client_packages\DavWebCreator\css\elements.css" />
+    <None Include="client_packages\DavWebCreator\Images\sumArt.png" />
+    <None Include="client_packages\DavWebCreator\js\ImportAgent.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\alert.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\alert.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\bootstrap.bundle.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\bootstrap.bundle.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\bootstrap.bundle.min.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\bootstrap.bundle.min.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\bootstrap.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\bootstrap.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\bootstrap.min.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\bootstrap.min.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\button.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\button.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\carousel.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\carousel.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\collapse.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\collapse.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\dropdown.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\dropdown.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\index.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\index.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\jquery-3.4.1.min.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\jquery-ui.min.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\modal.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\modal.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\popover.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\popover.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\scrollspy.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\scrollspy.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\tab.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\tab.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\tooltip.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\tooltip.js.map" />
+    <None Include="client_packages\DavWebCreator\js\libs\util.js" />
+    <None Include="client_packages\DavWebCreator\js\libs\util.js.map" />
+    <None Include="client_packages\DavWebCreator\package-lock.json" />
+    <None Include="client_packages\DavWebCreator\Selection_Template.html" />
+    <None Include="client_packages\DavWebCreator\Template.html" />
+  </ItemGroup>
+
+</Project>
