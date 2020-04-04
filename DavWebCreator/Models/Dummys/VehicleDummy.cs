@@ -12,9 +12,9 @@ namespace DavWebCreator.Server.Models.Dummys
         public int CurrentWeight { get; set; }
         public int Fuel { get; set; }
         public int MaxFuel { get; set; }
-        public bool ParkedIn { get; set; }
+        public bool IsAvailable { get; set; }
 
-        public VehicleDummy(int id, string name, int maxWeight, int weight, int fuel, int maxFuel, bool parkedIn)
+        public VehicleDummy(int id, string name, int maxWeight, int weight, int fuel, int maxFuel, bool isAvailable)
         {
             this.Id = id;
             this.Name = name;
@@ -22,7 +22,7 @@ namespace DavWebCreator.Server.Models.Dummys
             this.CurrentWeight = weight;
             this.Fuel = fuel;
             this.MaxFuel = maxFuel;
-            this.ParkedIn = parkedIn;
+            this.IsAvailable = isAvailable;
         }
     }
 }

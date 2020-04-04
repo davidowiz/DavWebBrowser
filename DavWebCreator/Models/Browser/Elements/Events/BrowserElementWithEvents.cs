@@ -14,13 +14,15 @@ namespace DavWebCreator.Resources.Models.Browser.Elements
         // Remote Events
        // public string Title { get; set; }
         public string RemoteEvent { get; set; }
+        public bool Enabled { get; set; }
 
         public List<BrowserRemoteReturnObject> ReturnObjects { get; set; }
 
         public BrowserElementWithEvent(BrowserElementType type, string remoteEvent)
             : base(type)
         {
-            this.RemoteEvent = remoteEvent;   
+            this.RemoteEvent = remoteEvent;
+            this.Enabled = true;
             this.ReturnObjects = new List<BrowserRemoteReturnObject>();
         }
         

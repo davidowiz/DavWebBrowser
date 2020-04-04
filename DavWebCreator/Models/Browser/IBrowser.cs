@@ -15,7 +15,7 @@ namespace DavWebCreator.Server.Models.Browser
         Guid Id { get; set; }
         string Path { get; set; }
         BrowserType Type { get; set; }
-        Position Position { get; set; }
+        BrowserContentAlign ContentPosition { get; set; }
         string Width { get; set; }
         string Height { get; set; }
         List<BrowserText> Texts { get; set; }
@@ -25,7 +25,6 @@ namespace DavWebCreator.Server.Models.Browser
         List<BrowserButton> Buttons { get; set; }
         List<BrowserCard> Cards { get; set; }
         List<BrowserCheckBox> CheckBoxes { get; set; }
-        BrowserYesNoDialog YesNoDialog { get; }
         List<BrowserButtonIcon> Icons { get; }
     }
 }

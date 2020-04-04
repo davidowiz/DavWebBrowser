@@ -13,12 +13,12 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Cards
         public string FontColor { get; set; }
         public bool Bold { get; set; }
         public bool ExitButton { get; set; }
-        public string ContentTitle { get; set; }
-        public string ContentText { get; set; }
-        public string CardTitle { get; set; }
+        public BrowserTitle ContentTitle { get; set; }
+        public BrowserText ContentText { get; set; }
+        public BrowserTitle CardTitle { get; set; }
         public BrowserTextAlign TextAlign { get; set; }
         public BrowserCardType CardType { get; set; }
-        public BrowserContentAlign ItemsAlign { get; set; }
+        public BrowserFlexWrap FlexWrap { get; set; }
         public string Image { get; set; }
         public int CurrentRow { get; set; }
 
@@ -27,18 +27,18 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Cards
 
         public BrowserCard(BrowserCardType cardType, string cardTitle, string contentTitle, string contentText) : base(BrowserElementType.Card)
         {
-            this.CardTitle = cardTitle;
-            this.ContentTitle = contentTitle;
-            this.ContentText = contentText;
+            this.CardTitle = new BrowserTitle(cardTitle, BrowserTextAlign.center);
+            this.ContentTitle = new BrowserTitle(contentTitle, BrowserTextAlign.center);
+            this.ContentText = new BrowserText(contentText, BrowserTextAlign.center);
             this.ChildElements = new List<Guid>();
             this.CardType = cardType;
             this.ExitButton = true;
             this.CurrentRow = 1;
-            this.Row = 1;
             this.Padding = "0 0 0 0";
             this.Margin = "5px 0 5px 0";
             this.ScrollBarX = false;
             this.ScrollBarY = false;
+            this.FlexWrap = BrowserFlexWrap.flex_wrap;
         }
 
         public int AddElement(Guid id)
@@ -46,12 +46,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Cards
             this.ChildElements.Add(id);
             return CurrentRow;
         }
-
-        public void NextRow()
-        {
-            CurrentRow++;
-        }
-
+        
 
     }
 }

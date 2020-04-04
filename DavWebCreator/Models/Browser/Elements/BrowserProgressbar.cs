@@ -3,12 +3,13 @@ using DavWebCreator.Resources.Models.Browser.Elements;
 using GTANetworkAPI;
 using System;
 using System.Timers;
+using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 using Newtonsoft.Json;
 
 namespace DavWebCreator.Server.Models.Browser.Elements
 {
     [Serializable]
-    public class BrowserProgressBar : BrowserElementWithEvent
+    public class BrowserProgressBar : BrowserElementWithEvent, IBrowserFont
     {
         public int MinValue { get; set; }
         public int MaxValue { get; set; }
@@ -16,7 +17,14 @@ namespace DavWebCreator.Server.Models.Browser.Elements
         public int MilleSecondsProgressInterval { get; set; }
         public int ProgressStep { get; set; }
         public bool ShowCurrentValue { get; set; }
-
+        public bool StartTimerInstant { get; set; }
+        public string ElapsedRemoteEvent { get; set; }
+        public string FontFamily { get; set; }
+        public string FontSize { get; set; }
+        public string FontColor { get; set; }
+        public bool Bold { get; set; }
+        public BrowserTextAlign TextAlign { get; set; }
+        public BrowserContentAlign ItemInlineAlignment { get; set; }
 
         private Client player;
         private Timer timer;
@@ -26,15 +34,19 @@ namespace DavWebCreator.Server.Models.Browser.Elements
         [JsonIgnore]
         public ProgressBarFinished ProgressBarFinishedEvent;
 
-        public BrowserProgressBar(int currentValue, int progressStep, int millisecondsProgressInterval)
+        public BrowserProgressBar(int currentValue, int progressStep, int millisecondsProgressInterval, bool startTimerInstant = true)
                 : base(BrowserElementType.ProgressBar, "")
         {
+            this.Width = "300px";
+            this.Height = "25px";
             this.MinValue = 0;
             this.MaxValue = 100;
             this.CurrentValue = currentValue;
             this.MilleSecondsProgressInterval = millisecondsProgressInterval;
             this.SetPredefinedProgressBarStyle(BrowserProgressBarStyle.Blue_Striped);
             this.ProgressStep = progressStep;
+            this.StartTimerInstant = startTimerInstant;
+            this.ItemInlineAlignment = BrowserContentAlign.Start;
         }
 
         public void UpdateCurrentValue(Client player)
@@ -49,8 +61,9 @@ namespace DavWebCreator.Server.Models.Browser.Elements
                 };
                 timer.Elapsed += Callback;
             }
-            timer.Start();
 
+            if(StartTimerInstant)
+                timer.Start();
         }
 
         private void Callback(object sender, ElapsedEventArgs e)
@@ -70,7 +83,11 @@ namespace DavWebCreator.Server.Models.Browser.Elements
             }
 
             CurrentValue += ProgressStep;
+            UpdateProgressBarValue(Id, CurrentValue, ShowCurrentValue);
+        }
 
+        public void UpdateProgressBarValue(Guid id, int currentValue, bool showCurrentvalue)
+        {
             player.TriggerEvent("UPDATE_PROGRESSBAR", Id, CurrentValue, ShowCurrentValue);
         }
 

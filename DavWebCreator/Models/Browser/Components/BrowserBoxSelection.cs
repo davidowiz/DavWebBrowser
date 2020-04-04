@@ -7,6 +7,9 @@ using DavWebCreator.Server.Models.Browser.Elements.Controls;
 
 namespace DavWebCreator.Server.Models.Browser.Components
 {
+    /// <summary>
+    /// Not imlemented yet
+    /// </summary>
     [Serializable]
     public class BrowserBoxSelection : BrowserElement
     {

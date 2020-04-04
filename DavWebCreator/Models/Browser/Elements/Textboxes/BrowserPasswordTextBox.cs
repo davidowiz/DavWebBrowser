@@ -10,7 +10,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Textboxes
     public class BrowserPasswordTextBox : BrowserElement, IBrowserFont
     {
         public string PlaceHolder { get; set; }
-        public string LabelText { get; set; }
+        public BrowserText Label { get; set; }
         public string Text { get; set; }
         public bool ReadOnly { get; set; }
         public string FontFamily { get; set; }
@@ -26,7 +26,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Textboxes
             : base(BrowserElementType.Password)
         {
             this.PlaceHolder = placeHolder;
-            this.LabelText = labelText;
+            this.Label = new BrowserText(labelText, BrowserTextAlign.center);
             this.Text = text;
             this.ReadOnly = readOnly;
             this.Bold = false;

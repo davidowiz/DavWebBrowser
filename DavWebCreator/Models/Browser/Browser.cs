@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
 using DavWebCreator.Resources.Models.Browser.Elements;
@@ -20,6 +21,7 @@ namespace DavWebCreator.Server.Models.Browser
         public Guid Id { get; set; }
         public string Path { get; set; }
         public BrowserType Type { get; set; }
+
         public List<BrowserText> Texts { get; set; }
         public List<BrowserTextBox> TextBoxes {get; set; }
         public List<BrowserPasswordTextBox> PasswordTextBoxes { get; set; }
@@ -29,7 +31,6 @@ namespace DavWebCreator.Server.Models.Browser
         public List<BrowserCard> Cards { get; set; }
         public List<BrowserCheckBox> CheckBoxes { get; set; }
         public List<BrowserDropDown> DropDowns { get; set; }
-        public BrowserYesNoDialog YesNoDialog { get; private set; }
         public List<BrowserContainer> Container { get; private set; }
         public BrowserBoxSelection BoxSelection { get; private set; }
         public List<BrowserButtonIcon> Icons { get; private set; }
@@ -39,7 +40,7 @@ namespace DavWebCreator.Server.Models.Browser
 
         // Stylesheet
         private int AddedElements = 0;
-        public Position Position { get; set; }
+        public BrowserContentAlign ContentPosition { get; set; }
         public string Width { get; set; }
         public string Height { get; set; }
         public bool ScrollBarY { get; set; }
@@ -49,17 +50,19 @@ namespace DavWebCreator.Server.Models.Browser
         /// 0.0 - 1.0
         /// </summary>
         public string Opacity { get; set; }
+        public string Margin { get; set; }
+        public string Padding { get; set; }
 
         public Browser()
         {
 
         }
 
-        public Browser(string title, BrowserType type, Position position, string width, string height)
+        public Browser(string title, BrowserType type, BrowserContentAlign position, string width, string height)
         {
             this.Id = Guid.NewGuid();
             this.Type = type;
-            this.Position = position;
+            this.ContentPosition = position;
             this.Texts = new List<BrowserText>();
             this.TextBoxes = new List<BrowserTextBox>();
             this.PasswordTextBoxes = new List<BrowserPasswordTextBox>();
@@ -80,22 +83,66 @@ namespace DavWebCreator.Server.Models.Browser
             switch (type)
             {
                 case BrowserType.Custom:
-                    this.Path = $"package://statics/DavWebCreator/Custom/Template.html";
+                    this.Path = $"package://DavWebCreator/Template.html";
                     break;
-                case BrowserType.YesNoDialog:
-                    this.Path = $"package://statics/DavWebCreator/Custom/Blank_Template.html";
+                //case BrowserType.YesNoDialog:
+                //    this.Path = $"package://DavWebCreator/Template.html";
+                //    //this.Path = $"package://DavWebCreator/Blank_Template.html";
                
-                    break;
+                //    break;
                 case BrowserType.Selection:
-                    this.Path = $"package://statics/DavWebCreator/Custom/Selection_Template.html";
+                    this.Path = $"package://DavWebCreator/Selection_Template.html";
                     break;
             }
         }
 
-        public void AddYesNoDialog(string remoteEvent, string title, string subTitle, string text, string successButtonText, string dismissButtonText)
+        public void AddYesNoDialog(BrowserYesNoDialog yesNoDialog)
         {
-            BrowserYesNoDialog yesNoDialog = new BrowserYesNoDialog(remoteEvent, title, subTitle, text, successButtonText, dismissButtonText);
-            this.YesNoDialog = yesNoDialog;
+            this.AddElement(yesNoDialog.SuccessButton);
+            this.AddElement(yesNoDialog.DismissButton);
+            this.AddElement(yesNoDialog.Card);
+        }
+
+        public BrowserYesNoDialog GetYesNoDialog(string remoteEvent, string title, string subTitle, string text, string successButtonText, string dismissButtonText)
+        {
+            BrowserYesNoDialog yesNoDialog = new BrowserYesNoDialog();
+
+            yesNoDialog.Card = new BrowserCard(BrowserCardType.HeaderAndContent, title, subTitle, text)
+            {
+                Width = "100%",
+                Height = "240px",
+                TextAlign = BrowserTextAlign.center,
+                ItemAlignment = BrowserContentAlign.Center_small,
+                FlexDirection = BrowserFlexDirection.flex_row,
+                FlexWrap = BrowserFlexWrap.flex_wrap,
+                Margin = "0px 0px 5px 1px"
+            };
+
+     
+            yesNoDialog.Card.ContentTitle.Padding = "10px 0 0 0";
+            yesNoDialog.Card.ContentTitle.Padding = "5px 0 0 0";
+
+            yesNoDialog.SuccessButton = new BrowserButton(successButtonText, remoteEvent);
+            yesNoDialog.SuccessButton.SetPredefinedButtonStyle(BrowserButtonStyle.Green);
+            yesNoDialog.SuccessButton.Width = "150px";
+            yesNoDialog.SuccessButton.Height = "40px";
+            yesNoDialog.SuccessButton.TextAlign = BrowserTextAlign.center;
+            yesNoDialog.SuccessButton.Margin = "0 0 0 8px";
+            yesNoDialog.SuccessButton.AddReturnObject(yesNoDialog.SuccessButton, "");
+
+            yesNoDialog.DismissButton = new BrowserButton(dismissButtonText, remoteEvent);
+            yesNoDialog.DismissButton.SetPredefinedButtonStyle(BrowserButtonStyle.Red);
+            yesNoDialog.DismissButton.Width = "150px";
+            yesNoDialog.DismissButton.Height = "40px";
+            yesNoDialog.DismissButton.TextAlign = BrowserTextAlign.center;
+            yesNoDialog.DismissButton.Margin = "0 8px 0 0";
+            yesNoDialog.DismissButton.AddReturnObject(yesNoDialog.DismissButton, ""); // Return Dismiss Button Text to let know which button was pressed
+
+            yesNoDialog.Card.AddElement(yesNoDialog.Card.CardTitle.Id);
+            yesNoDialog.Card.AddElement(yesNoDialog.SuccessButton.Id);
+            yesNoDialog.Card.AddElement(yesNoDialog.DismissButton.Id);
+
+            return yesNoDialog;
         }
 
 
@@ -104,7 +151,7 @@ namespace DavWebCreator.Server.Models.Browser
             this.BoxSelection = new BrowserBoxSelection();
             this.BoxSelection.Title = new BrowserTitle(title, BrowserTextAlign.center);
             this.BoxSelection.PrimaryCardButton = new BrowserButton("FirstBatton", "SUMEVENT");
-            this.BoxSelection.SecondaryCardButton = new BrowserButton("FirstBatton", "SUMEVENT");
+            this.BoxSelection.SecondaryCardButton = new BrowserButton("SecondBatton", "SUMEVENT");
             this.Cards = new List<BrowserCard>();
         }
 
@@ -114,8 +161,11 @@ namespace DavWebCreator.Server.Models.Browser
         {
             foreach (var progressBar in ProgressBars)
             {
-                // Start timer to update progressBar
-                progressBar.UpdateCurrentValue(player);
+                if (progressBar.StartTimerInstant)
+                {
+                    // Start timer to update progressBar
+                    progressBar.UpdateCurrentValue(player);
+                }
             }
 
             player.TriggerEvent("INITIALIZE_CEF_BROWSER", JsonConvert.SerializeObject(this));
@@ -125,7 +175,7 @@ namespace DavWebCreator.Server.Models.Browser
         public void AddElement(BrowserElement element)
         {
             element.OrderIndex = AddedElements++;
-            element.Position = this.Position;
+            //element.Position = this.Position;
             switch (element.Type)
             {
                 case BrowserElementType.BrowserBoxSelection:
@@ -156,10 +206,10 @@ namespace DavWebCreator.Server.Models.Browser
                     BrowserPasswordTextBox passwordTextBox = element as BrowserPasswordTextBox;
                     PasswordTextBoxes.Add(passwordTextBox);
                     break;
-                case BrowserElementType.YesNoDialog:
-                    BrowserYesNoDialog yesNoDialog = element as BrowserYesNoDialog;
-                    YesNoDialog = yesNoDialog;
-                    break;
+                //case BrowserElementType.YesNoDialog:
+                //    BrowserYesNoDialog yesNoDialog = element as BrowserYesNoDialog;
+                //    YesNoDialog = yesNoDialog;
+                //    break;
                 case BrowserElementType.Checkbox:
                     BrowserCheckBox checkBox = element as BrowserCheckBox;
                     CheckBoxes.Add(checkBox);
@@ -189,7 +239,7 @@ namespace DavWebCreator.Server.Models.Browser
 
         public override string ToString()
         {
-            return string.Format(this.Id + " | " + this.Path + " | " + this.Position + " | " + this.Type);
+            return string.Format(this.Id + " | " + this.Path + " | " + this.Type);
         }
     }
 }

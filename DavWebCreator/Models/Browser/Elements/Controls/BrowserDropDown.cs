@@ -22,7 +22,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Controls
         public BrowserDropDown(string labelText) : base(BrowserElementType.DropDown)
         {
             this.Values = new List<BrowserDropDownValue>();
-            this.Label = new BrowserText("", labelText, BrowserTextAlign.center);
+            this.Label = new BrowserText(labelText, BrowserTextAlign.center);
         }
 
         public void AddDropDownValue(string value, string hiddenValue)

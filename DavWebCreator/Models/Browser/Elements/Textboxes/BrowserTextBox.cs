@@ -8,7 +8,7 @@ namespace Browsers.Models.BrowserModels.Elements
     public class BrowserTextBox : BrowserElement, IBrowserFont
     {
         public string PlaceHolder { get; set; }
-        public string LabelText { get; set; }      
+        public BrowserText Label { get; set; }      
         public string Text { get; set; }
         public bool ReadOnly { get; set; }
         public string FontFamily { get; set; }
@@ -22,7 +22,7 @@ namespace Browsers.Models.BrowserModels.Elements
             :base(elementType)
         {
             this.PlaceHolder = placeHolder;
-            this.LabelText = labelText;
+            this.Label = new BrowserText(labelText, BrowserTextAlign.center);
             this.Text = text;
             this.ReadOnly = readOnly;
             this.Bold = false;

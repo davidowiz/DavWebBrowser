@@ -1,7 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Authors>Davidowiz</Authors>
+    <Copyright>@Davidowiz</Copyright>
+    <NeutralLanguage>English</NeutralLanguage>
+    <Product>DavWebCreator</Product>
+    <Description>Provides models to design custom or predefined templates of CEF browser within RAGE MP.
+
+Required the "DavWebCreator.Client" package to run.
+Additionally HTML, CSS, JS and other files are required to be present at the path "ragemp\server-files\client_packages\".</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <FileVersion>1.0.0.5</FileVersion>
+    <AssemblyVersion>1.0.0.5</AssemblyVersion>
+    <PackageProjectUrl>https://github.com/davidowiz/DavWebBrowser</PackageProjectUrl>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <Version>1.0.5</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -9,31 +23,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="BCrypt.Net-Core">
-      <HintPath>..\..\rageroleplay\bridge\runtime\BCrypt.Net-Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Ben.Demystifier">
-      <HintPath>D:\ragemp\server-files\dotnet\runtime\Ben.Demystifier.dll</HintPath>
-    </Reference>
-    <Reference Include="Bootstrapper">
-      <HintPath>D:\ragemp\server-files\dotnet\runtime\Bootstrapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\rageroleplay\bridge\runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System">
-      <HintPath>..\..\rageroleplay\bridge\runtime\System.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data">
-      <HintPath>..\..\rageroleplay\bridge\runtime\System.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml">
-      <HintPath>..\..\rageroleplay\bridge\runtime\System.Xml.dll</HintPath>
-    </Reference>
+    <Content Include="doc.md">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\" />
+    <Reference Include="Ben.Demystifier">
+      <HintPath>D:\ragemp\server-files\bridge\runtime\Ben.Demystifier.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Bootstrapper">
+      <HintPath>D:\ragemp\server-files\bridge\runtime\Bootstrapper.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:\ragemp\server-files\bridge\runtime\Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
 </Project>
