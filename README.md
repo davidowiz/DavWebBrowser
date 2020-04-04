@@ -10,24 +10,8 @@ Contributer (short) guide:
 3. Make sure all libary references are present. If not restore nuget packages and/or add missing references from the "server-files/bridge/runtime/" folder.
 4. Adjust project "DavWebCreator.Server" output path to point to your  "server-files/bridge/resources/DavWebBrowser". Now if the project was build, the .dll will be present in the resources folder.
 5. Now add a file called "meta.xml" to your "server-files/bridge/resources/DavWebBrowser" folder.
-6. Open the file in a text-editor and paste the following content in.
+6. Open the file in a text-editor and paste the following content inside the script tag. "src="netcoreapp2.2/DavWebCreator.Server.dll"
   
-"<?xml version="1.0" encoding="utf-8"?>
-<meta>
-  <info name = "DavWebCreator" author="Davidowiz" type="gamemode"/>
-  
-  <!-- Gamemode library -->
-  <script src = "netcoreapp2.2/DavWebCreator.Server.dll" />
-
-  <settings> 
-    <!-- Server Configuration Kind of useless right now but will be important for configurations later -->
-    <setting name="PAGE_TITLE" value="DavWebCreator"/>
-  
-    <!-- Stylesheet Configuration-->
-    <setting name = "THEME" value="default"/>
-  </settings>
-</meta>"
-
 7. One thing you still have to do is, to make sure your client project is within the "..\ragemp\server-files\client_packages\cs_packages\" folder, in order to actually work.
 8. This is hopefully everything in order to contribute. If you have improvements, it would be great if you could share them with us/me :-) 
 
