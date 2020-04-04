@@ -4,17 +4,11 @@ Generate CEF Browser dynamic in RAGE-MP with C# on the server side
 
 Feel free to contribute and share your ideas or feature requests.
 
-THIS IS NOT READY FOR A PRODUCTIVE VERSION YET. 
-
-Wiki and further instructions will follow, as soon as a first showable version is present.
-
-Open the readme in RAW format or something simmilar to see the following better formatted.
-
-Starter Guide:
+Contributer (short) guide:
 1. Clone project
-2. Copy the folder which beginngs with "statics" into your "%RageInstallation%/server-files/client-packages/"
+2. Copy the content of the folder within the client project called "client_packages" into your "RageInstallationPath/server-files/client-packages/".
 3. Make sure all libary references are present. If not restore nuget packages and/or add missing references from the "server-files/bridge/runtime/" folder.
-4. Adjust project "DavWebCreate.Server" output path to point to your  "server-files/bridge/resources/DavWebBrowser". Now if the project was build, the .dll will be present in the resources folder.
+4. Adjust project "DavWebCreator.Server" output path to point to your  "server-files/bridge/resources/DavWebBrowser". Now if the project was build, the .dll will be present in the resources folder.
 5. Now add a file called "meta.xml" to your "server-files/bridge/resources/DavWebBrowser" folder.
 6. Open the file in a text-editor and paste the following content in.
   
@@ -25,8 +19,8 @@ Starter Guide:
   <!-- Gamemode library -->
   <script src = "netcoreapp2.2/DavWebCreator.Server.dll" />
 
-  <settings>
-    <!-- Server Configuration -->
+  <settings> 
+    <!-- Server Configuration Kind of useless right now but will be important for configurations later -->
     <setting name="PAGE_TITLE" value="DavWebCreator"/>
   
     <!-- Stylesheet Configuration-->
@@ -34,14 +28,16 @@ Starter Guide:
   </settings>
 </meta>"
 
-7. This is hopefully everything in order to contribute.
+7. One thing you still have to do is, to make sure your client project is within the "..\ragemp\server-files\client_packages\cs_packages\" folder, in order to actually work.
+8. This is hopefully everything in order to contribute. If you have improvements, it would be great if you could share them with us/me :-) 
 
 Notes:
-Html template is splitted in a 3x3 Grid to set the content elements to the desired positions.
-Width and height of the html is too adjustable.
-Themes will be implemented later for the browser and for the browser elements. (elements will overwrite browser or container style rules)
+The main goal is to improve the development process and give the possibility to change every element of a browser in real time with almost 0 afford. (Compared to creating HTML,CSS,Javascript.... files, the logic behind and the actual connection to your backend, this is really simple if you got it one time. The good about it, you can pretty fast build up a ui to test several features, without having the issue of building a proper ui for hours or days...
 
-The main goal is to improve the development process and give the possibility to change every element of a browser in real time with almost 0 afford. (Compared to creating HTML,CSS,Javascript.... files, the logic behind and the actual connection to your backend).
+- The contribution setup and documentation will be improved.
+- The webside documentation will be improved to be way better. (I only had spend like 8 hours on the angular based website, im sorry :S) 
+
+And as I already mentioned several times, if you would like to contribute in any way or have questions, you can contact me via email: support@davwebcreator.com or via discord Davidowiz#0450
 
 *** MIT license ***
 
