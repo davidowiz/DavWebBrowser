@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Linq;
 using Browsers.Models.BrowserModels;
 using Browsers.Models.BrowserModels.Elements;
-using DavWebCreator.Resources.Models.Browser.Elements;
+using DavWebCreator.Server.Helper;
 using DavWebCreator.Server.Models.Browser.Components;
 using DavWebCreator.Server.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Cards;
@@ -168,9 +168,22 @@ namespace DavWebCreator.Server.Models.Browser
                 }
             }
 
-            player.TriggerEvent("INITIALIZE_CEF_BROWSER", JsonConvert.SerializeObject(this));
-        }
+            string json = JsonConvert.SerializeObject(this, Formatting.None, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
 
+            });
+
+            string[] splitted = json.Chop(65500);
+
+            for (int i = 0; i < splitted.Count(); i++)
+            {
+                if(i == 0)
+                    player.TriggerEvent("SEND_BROWSER_DATA", splitted[i], splitted.Count());
+                else
+                    player.TriggerEvent("SEND_BROWSER_DATA", splitted[i]);
+            }
+        }
 
         public void AddElement(BrowserElement element)
         {

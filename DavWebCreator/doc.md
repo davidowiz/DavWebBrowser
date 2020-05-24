@@ -58,17 +58,7 @@ Lets get right into some examples...
         [Command("card")]
         public void CreateExampleBoxes(Client player)
         {
-        List<VehicleDummy> vehicleDummys = new List<VehicleDummy>
-        {
-            new VehicleDummy(2, "Sultan RS6", 200, 100, 50, 60, true),
-            new VehicleDummy(3, "Lambo Diablo GT", 140, 20, 43, 50, false),
-            new VehicleDummy(4, "Banshee", 120, 30, 23, 45, false),
-            new VehicleDummy(5, "Glendale", 240, 70, 63, 85, true),
-            new VehicleDummy(6, "DavMobil", 240, 70, 63, 85, true),
-            new VehicleDummy(6, "DavMobil", 240, 70, 63, 85, true),
-            new VehicleDummy(6, "DavMobil", 240, 70, 63, 85, true),
-            new VehicleDummy(6, "DavMobil", 240, 70, 63, 85, true)
-        };
+
             Browser browser = new Browser("Disdas", BrowserType.Custom, BrowserContentAlign.Center, "100%", "100%")
             {
                 BackgroundColor = "white",
@@ -89,7 +79,6 @@ Lets get right into some examples...
             };
 
             card.CardTitle.TextAlign = BrowserTextAlign.left;
-
 
             browser.AddElement(card);
             foreach (VehicleDummy dummy in vehicleDummys)
