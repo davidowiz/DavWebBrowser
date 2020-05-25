@@ -217,7 +217,7 @@ namespace DavWebCreator.Client
                 {
                     case BrowserType.Custom: // Default
                         string mid = GetHtmlStringByElements(allElements);
-                        ProvideError(mid);
+                        //ProvideError(mid);
                         if (!string.IsNullOrEmpty(mid))
                         {
                             BrowserWindow.ExecuteJs($"{browserAlignAddClass}{jsToExecute}document.getElementById('DavWebCreator').innerHTML = '{mid}';");

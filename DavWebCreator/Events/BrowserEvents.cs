@@ -1,4 +1,5 @@
 ﻿using Browsers.Models.BrowserModels;
+using Browsers.Models.BrowserModels.Elements;
 using DavWebCreator.Server.Models.Browser;
 using DavWebCreator.Server.Models.Browser.Elements;
 using DavWebCreator.Server.Models.Browser.Elements.Cards;
@@ -7,6 +8,7 @@ using DavWebCreator.Server.Models.Browser.Elements.Fonts;
 using DavWebCreator.Server.Models.Dummys;
 using GTANetworkAPI;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace DavWebCreator.Server.Events
@@ -52,7 +54,10 @@ namespace DavWebCreator.Server.Events
 
         #endregion
 
-        //#region Select Example
+
+
+
+        //  #region Select Example
         //[Command("selector")]
         //public void CreateExampleSelection(Client player)
         //{
@@ -134,7 +139,7 @@ namespace DavWebCreator.Server.Events
         //    player.TriggerEvent("CLOSE_BROWSER");
         //}
 
-        //#endregion
+        //        #endregion
 
 
         ////        #region Examle Vehicle Selection
@@ -645,6 +650,140 @@ namespace DavWebCreator.Server.Events
         //        }
 
         //        #endregion
+
+        //#region Form Examples
+        //[Command("form")]
+        //public void CreateExampleForm(Client player)
+        //{
+
+        //    Browser browser = new Browser("Form", BrowserType.Custom, BrowserContentAlign.Center, "100%", "800px")
+        //    {
+        //        BackgroundColor = "white",
+        //        Margin = "10px 0 0 0"
+        //    };
+
+        //    BrowserCard card = new BrowserCard(BrowserCardType.HeaderAndContent,
+        //        "Create Garage", "", "")
+        //    {
+        //        Width = "500px",
+        //        Height = "300px",
+        //        TextAlign = BrowserTextAlign.center,
+        //        ItemAlignment = BrowserContentAlign.Center,
+        //        ScrollBarY = false,
+        //        FlexDirection = BrowserFlexDirection.flex_md_row_reverse
+        //    };
+
+        //    browser.AddElement(card);
+
+
+        //    BrowserDropDown dropDown = new BrowserDropDown("Garage Type");
+        //    dropDown.Label.Width = "180px";
+
+        //    dropDown.Height = "100%";
+        //    dropDown.FontColor = "black";
+        //    dropDown.Width = "150px";
+        //    dropDown.Bold = true;
+        //    dropDown.TextAlign = BrowserTextAlign.center;
+
+        //    BrowserTextBox ownerId = new BrowserTextBox("Enter Owner Id...", "", "Owner ID", false)
+        //    {
+        //        TextAlign = BrowserTextAlign.center,
+        //        Width = "180px",
+        //        Margin = "0 0 0 0"
+        //    };
+
+        //    BrowserTextBox depositFee = new BrowserTextBox("Enter deposit fee...", "", "Deposit Fee", false)
+        //    {
+        //        TextAlign = BrowserTextAlign.center,
+        //        Width = "180px",
+        //        Margin = "0 0 0 0"
+        //    };
+
+        //    BrowserTextBox withdrawFee = new BrowserTextBox("Enter withdraw fee...", "", "Withdraw Fee", false)
+        //    {
+        //        TextAlign = BrowserTextAlign.center,
+        //        Width = "180px",
+        //        Margin = "0 0 0 0"
+        //    };
+
+        //    BrowserButton button = new BrowserButton("CONFIRM", "CONFIRMED_FORM");
+        //    button.Margin = "20px 0 0 0";
+        //    button.FontSize = "16px";
+        //    button.Width = "500px";
+        //    button.TextAlign = BrowserTextAlign.center;
+        //    button.FlexDirection = BrowserFlexDirection.flex_xl_row_reverse;
+        //    button.Bold = true;
+
+        //    // will be returned in the same order to the confirm_form remote event
+           
+        //    button.AddReturnObject(ownerId);
+        //    button.AddReturnObject(depositFee);
+        //    button.AddReturnObject(withdrawFee);
+        //    button.AddReturnObject(dropDown);
+
+
+        //    dropDown.AddDropDownValue("Faction", "1");
+        //    dropDown.AddDropDownValue("Business", "2");
+        //    dropDown.AddDropDownValue("Private", "3");
+
+        //    card.AddElement(button.Id);
+        //    card.AddElement(ownerId.Id);
+        //    card.AddElement(depositFee.Id);
+        //    card.AddElement(withdrawFee.Id);
+        //    card.AddElement(dropDown.Id);
+
+        //    // Order is important
+        //    browser.AddElement(ownerId);
+        //    browser.AddElement(depositFee);
+        //    browser.AddElement(withdrawFee);
+        //    browser.AddElement(dropDown);
+        //    browser.AddElement(button);
+
+
+        //    browser.OpenBrowser(player);
+        //}
+
+
+        //[RemoteEvent("CONFIRMED_FORM")]
+        //public void ButtonClicked(Client player, object[] args)
+        //{
+        //    List<BrowserEventResponse> responses = JsonConvert.DeserializeObject<List<BrowserEventResponse>>(args[0].ToString());
+
+        //    // Same order as above
+        //    var ownerId = responses[0];
+        //    var deposit = responses[1];
+        //    var withdraw = responses[2];
+        //    var dropDown = responses[3];
+
+
+        //    player.SendChatMessage(dropDown.Value + " " + dropDown.HiddenValue);
+
+        //    if (Enum.TryParse(dropDown.HiddenValue, out GarageTypes choosenType))
+        //    {
+        //        player.SendChatMessage(choosenType.ToString() + " was selected");
+        //    }
+
+        //    // or
+
+        //    if(int.TryParse(dropDown.HiddenValue, out int selectedIntValue))
+        //    {
+        //        player.SendChatMessage("Selected " + selectedIntValue);
+        //    }
+
+        //    player.SendChatMessage("Deposit " + deposit.Value);
+        //    player.SendChatMessage("Widthaw " + withdraw.Value);
+        //    player.SendChatMessage("OwnerId " + ownerId.Value);
+
+
+        //}
+
+        //public enum GarageTypes
+        //{
+        //    Business = 1,
+        //    Public,
+        //    Faction
+        //}
+        //#endregion
 
         //        #region YesNo Dialog Example
         //        /// <summary>

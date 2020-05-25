@@ -384,9 +384,9 @@ ul::-webkit-scrollbar {
 }
 
 ul {
-    height: 130px;
+    /*height: 130px;*/
     border-radius: 1px;
-    width: 95%;
+   /* width: 95%;*/
     overflow: hidden;
     overflow-y: scroll;
     overflow: -moz-scrollbars-none;
