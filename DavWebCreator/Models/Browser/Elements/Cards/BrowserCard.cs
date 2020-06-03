@@ -28,6 +28,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements.Cards
         public BrowserCard(BrowserCardType cardType, string cardTitle, string contentTitle, string contentText) : base(BrowserElementType.Card)
         {
             this.CardTitle = new BrowserTitle(cardTitle, BrowserTextAlign.center);
+            this.CardTitle.Padding = "10px 0 25px 10px";
             this.ContentTitle = new BrowserTitle(contentTitle, BrowserTextAlign.center);
             this.ContentText = new BrowserText(contentText, BrowserTextAlign.center);
             this.ChildElements = new List<Guid>();

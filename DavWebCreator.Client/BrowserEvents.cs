@@ -8,6 +8,7 @@ using DavWebCreator.Client.Models.Browser.Elements.Controls;
 using DavWebCreator.Client.Models.Browser.Elements.Events;
 using DavWebCreator.Client.Models.Browser.Elements.Fonts;
 using DavWebCreator.Client.Models.Browser.Elements.Textboxes;
+using DavWebCreator.Client.Models.Communication;
 using Newtonsoft.Json;
 using RAGE;
 using RAGE.Ui;
@@ -34,14 +35,12 @@ namespace DavWebCreator.Client
         public CEFBrowserEvents()
         {
             Cursor.Visible = false;
-            Events.Add("INITIALIZE_CEF_BROWSER", CreateBrowserEvents);
+            Events.Add("SEND_BROWSER_DATA", TransmitData);
             Events.Add("BROWSER_ELEMENT_CLICKED_EVENT", EventTrigger);
             Events.Add("TRIGGER_TEST", TriggerTest);
-            Events.Add("PROVIDE_ERROR", ProvideError);
+            //Events.Add("PROVIDE_ERROR", ProvideError);
             Events.Add("CLOSE_BROWSER", CloseBrowser);
             Events.Add("UPDATE_PROGRESSBAR", UpdateProgressBar);
-            // RAGE.Events.Add("CLOSE_BROWSER", CloseBrowserExecution);
-            // RAGE.Events.Add("CLOSE_BROWSER_JS", CloseBrowserJS);
         }
 
         private void UpdateProgressBar(object[] args)
@@ -82,6 +81,35 @@ namespace DavWebCreator.Client
             }
         }
 
+        /// <summary>
+        /// Method to handle huge json requests.
+        /// </summary>
+        /// <param name="args"></param>
+        public void TransmitData(params object[] args)
+        {
+            var communication = RAGE.Elements.Player.LocalPlayer.GetData<Communication>("DAV_IS_TRANSMITTING");
+
+            if (communication == null || communication.CurrentLength == 0)
+            {
+                int length = 0;
+                if (!int.TryParse(args[1].ToString(), out length))
+                    return;
+
+                communication = new Communication(length);
+            }
+
+            communication.JsonResults += args[0].ToString();
+            communication.CurrentLength++;
+            //ProvideError($"Transmission Done ({communication.CurrentLength}/{communication.Length})");
+
+            if (communication.CurrentLength == communication.Length)
+            {
+                this.CreateBrowserEvents(communication.JsonResults);
+                communication.Reset();
+            }
+            RAGE.Elements.Player.LocalPlayer.SetData("DAV_IS_TRANSMITTING", communication);
+        }
+
         public void ProvideError(params object[] args)
         {
             Events.CallRemote("BROWSER_TEXT", args);
@@ -93,13 +121,12 @@ namespace DavWebCreator.Client
         /// <param name="args"></param>
         public void EventTrigger(params object[] args)
         {
-            RAGE.Events.CallRemote("BROWSER_TEXT", args);
+            //RAGE.Events.CallRemote("BROWSER_TEXT", args);
             if (!Guid.TryParse(args[0].ToString(), out Guid guid))
             {
                 Chat.Output("We got him: " + guid);
                 return;
             }
-
 
             string returnEvent = args[1].ToString();
 
@@ -116,21 +143,23 @@ namespace DavWebCreator.Client
         /// This is the main method, where the browser gets created in general.
         /// </summary>
         /// <param name="args"></param>
-        public void CreateBrowserEvents(params object[] args)
+        private void CreateBrowserEvents(string json)
         {
             try
             {
-                this.BrowserModel = JsonConvert.DeserializeObject<Browser>(args[0].ToString());
+                this.BrowserModel = JsonConvert.DeserializeObject<Browser>(json);
 
                 if (BrowserWindow != null)
                 {
                     BrowserWindow.Destroy();
                     BrowserWindow = null;
                 }
+
                 BrowserWindow = new HtmlWindow(BrowserModel.Path)
                 {
                     Active = false
                 };
+
                 BrowserWindow.Active = true;
 
                 Cursor.Visible = true;
@@ -165,7 +194,7 @@ namespace DavWebCreator.Client
                     scrollBarX = new Stylesheet("overflow-x", "hidden").ToString();
 
                 string scrollBarY = "";
-                if(this.BrowserModel.ScrollBarY)
+                if (this.BrowserModel.ScrollBarY)
                     scrollBarY = new Stylesheet("overflow-y", "scroll").ToString();
                 else
                     scrollBarY = new Stylesheet("overflow-y", "hidden").ToString();
@@ -175,7 +204,7 @@ namespace DavWebCreator.Client
                     margin = new Stylesheet("margin", this.BrowserModel.Margin).ToString();
 
                 string padding = "";
-                if(!string.IsNullOrEmpty(this.BrowserModel.Padding))
+                if (!string.IsNullOrEmpty(this.BrowserModel.Padding))
                     padding = new Stylesheet("padding", this.BrowserModel.Padding).ToString();
 
                 string jsToExecute = $"document.getElementById('DavWebCreator').setAttribute(\"style\",\"text-align:center;{backgroundColor}{margin}{padding}{opacity}{scrollBarX}{scrollBarY}display:block;background-color:transparent;width:{this.BrowserModel.Width};height:{this.BrowserModel.Height}\");";
@@ -183,12 +212,12 @@ namespace DavWebCreator.Client
                 string align = GetContentAlignment(BrowserModel.ContentPosition);
 
                 string browserAlignAddClass = $"document.getElementById('DavWebCreator').className +=' p-2 {align}';";
-              
+
                 switch (this.BrowserModel.Type)
                 {
                     case BrowserType.Custom: // Default
-                        // ProvideError(mid);
                         string mid = GetHtmlStringByElements(allElements);
+                        //ProvideError(mid);
                         if (!string.IsNullOrEmpty(mid))
                         {
                             BrowserWindow.ExecuteJs($"{browserAlignAddClass}{jsToExecute}document.getElementById('DavWebCreator').innerHTML = '{mid}';");
@@ -196,14 +225,13 @@ namespace DavWebCreator.Client
                         break;
                     case BrowserType.Selection:
                         string selection = GetHtmlStringByElements(allElements);
-                        ProvideError(selection);
                         BrowserWindow.ExecuteJs($"document.getElementById('Content').innerHTML ='{selection}';{jsToExecute}");
                         break;
                 }
             }
             catch (Exception e)
             {
-                ProvideError(e);
+                //ProvideError(e);
             }
         }
 
@@ -265,7 +293,7 @@ namespace DavWebCreator.Client
 
             StringBuilder rawHtmlBuilder = new StringBuilder();
 
-            if (elements.Any(w=> w.Type == BrowserElementType.Card))
+            if (elements.Any(w => w.Type == BrowserElementType.Card))
             {
                 List<IBrowserElement> container = elements.Where(w => w.Type == BrowserElementType.Card).ToList();
                 foreach (IBrowserElement element in container)
@@ -301,7 +329,7 @@ namespace DavWebCreator.Client
                                         string align = GetContentAlignment(card.ItemAlignment);
 
                                         cardHtml += $"<div class=\"p-2 {align}\">";
-                                       
+
 
                                         if (card.ChildElements.Count <= 0)
                                         {
@@ -322,12 +350,12 @@ namespace DavWebCreator.Client
 
                                             string itemAlign = GetContentAlignment(card.ItemAlignment);
 
-                                            cardHtml += $"<div class=\"p-2 {itemAlign} {card.FlexWrap.ToString().Replace('_','-')}\" style=\"margin:0;padding:0;\">";
+                                            cardHtml += $"<div class=\"p-2 {itemAlign} {card.FlexWrap.ToString().Replace('_', '-')}\" style=\"margin:0;padding:0;\">";
                                             foreach (IBrowserElement child in childElements.OrderBy(w => w.OrderIndex))
                                             {
                                                 string childAlign = GetContentAlignment(child.ItemAlignment);
 
-                                                cardHtml += $"<div class=\"p2 {childAlign} {child.FlexDirection.ToString().Replace('_','-')}\">";
+                                                cardHtml += $"<div class=\"p2 {childAlign} {child.FlexDirection.ToString().Replace('_', '-')}\">";
                                                 cardHtml += GetHtmlStringByBrowserElement(child);
                                                 alreadyAdded.Add(child.Id);
 
@@ -509,7 +537,7 @@ namespace DavWebCreator.Client
 
             if (browserElement.ScrollBarX)
             {
-                Stylesheet scrollBarX = new Stylesheet("overflow-x","scroll");
+                Stylesheet scrollBarX = new Stylesheet("overflow-x", "scroll");
                 returner += scrollBarX;
             }
             else
@@ -546,7 +574,7 @@ namespace DavWebCreator.Client
                 string border = new Stylesheet("border", $"{browserElement.BorderWidth} {borderStyle} {browserElement.BorderColor}").ToString();
                 returner += border;
             }
-            
+
 
             return returner;
         }
@@ -625,7 +653,7 @@ namespace DavWebCreator.Client
         public string GetHtmlToAppendByBrowserCard(BrowserCard card)
         {
             string fontSettings = GetStylesToAppendByBrowserFont(card);
-            string defaultSettings = GetDefaultStyleSettings(card,true);
+            string defaultSettings = GetDefaultStyleSettings(card, true);
             string animationClasses = GetAnimationClass(card.AnimationType);
 
             string exitButton = "";
@@ -650,7 +678,7 @@ namespace DavWebCreator.Client
             var contentFontStyle = GetStylesToAppendByBrowserFont(card.ContentText);
             string contentText = !string.IsNullOrEmpty(card.ContentText.Text) ? $"<p class=\"card-text\" style=\"{contentFontStyle}{contentStyles}\">{card.ContentText.Text}</p>" : "";
 
-            string flexWrap = card.FlexWrap.ToString().Replace('_','-');
+            string flexWrap = card.FlexWrap.ToString().Replace('_', '-');
             string flex = card.FlexDirection == BrowserFlexDirection.unset ? "" : card.FlexDirection.ToString().Replace('_', '-');
 
             string contentAlign = GetContentAlignment(card.ItemAlignment);
@@ -707,14 +735,14 @@ namespace DavWebCreator.Client
                     break;
                 case BrowserContentAlign.End_xl:
                     contentAlign = "d-flex justify-content-xl-end";
-                    break;                                 
-                case BrowserContentAlign.Center_xl:        
+                    break;
+                case BrowserContentAlign.Center_xl:
                     contentAlign = "d-flex justify-content-xl-center";
-                    break;                                 
-                case BrowserContentAlign.Around_xl:        
+                    break;
+                case BrowserContentAlign.Around_xl:
                     contentAlign = "d-flex justify-content-xl-around";
-                    break;                                 
-                case BrowserContentAlign.Between_xl:       
+                    break;
+                case BrowserContentAlign.Between_xl:
                     contentAlign = "d-flex justify-content-xl-between";
                     break;
                 case BrowserContentAlign.Start_medium:
@@ -819,7 +847,7 @@ namespace DavWebCreator.Client
             if (progressBar.ShowCurrentValue)
                 progressValue = progressBar.CurrentValue + "%";
 
-            
+
             return $"<div class=\"progress {GetContentAlignment(progressBar.ItemInlineAlignment)}\" style=\"{styles}{defaultStyle}width:{progressBar.Width};height:{progressBar.Height};\" class=\"{animations}\"><div id=\"{progressBar.Id}\" class=\"progress-bar {progressBar.StyleClass}\" role=\"progressbar\" style=\"{defaultStyle}{styles}width: {progressBar.CurrentValue}%\" aria-valuenow=\"{progressBar.CurrentValue}\" aria-valuemin=\"{progressBar.MinValue}\" aria-valuemax=\"{progressBar.MaxValue}\">{progressValue}</div></div>";
         }
         public string GetHtmlToAppendByBrowserDropDown(BrowserDropDown dropDown)
