@@ -26,11 +26,11 @@ namespace DavWebCreator.Server.Models.Browser.Elements
         public BrowserTextAlign TextAlign { get; set; }
         public BrowserContentAlign ItemInlineAlignment { get; set; }
 
-        private Client player;
+        private Player player;
         private Timer timer;
 
 
-        public delegate void ProgressBarFinished(Client player, BrowserProgressBar progressBar);
+        public delegate void ProgressBarFinished(Player player, BrowserProgressBar progressBar);
         [JsonIgnore]
         public ProgressBarFinished ProgressBarFinishedEvent;
 
@@ -49,7 +49,7 @@ namespace DavWebCreator.Server.Models.Browser.Elements
             this.ItemInlineAlignment = BrowserContentAlign.Start;
         }
 
-        public void UpdateCurrentValue(Client player)
+        public void UpdateCurrentValue(Player player)
         {
             this.player = player;
             if (timer == null)

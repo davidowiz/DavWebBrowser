@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Davidowiz</Authors>
     <Copyright>@Davidowiz</Copyright>
     <NeutralLanguage>English</NeutralLanguage>
@@ -19,7 +19,7 @@ Additionally HTML, CSS, JS and other files are required to be present at the pat
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>D:\ragemp\server-files\bridge\resources\DavWebCreator\</OutputPath>
+    <OutputPath>D:\ragemp\server-files\dotnet\resources\DavWebCreator\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,12 +30,8 @@ Additionally HTML, CSS, JS and other files are required to be present at the pat
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Ben.Demystifier">
-      <HintPath>D:\ragemp\server-files\bridge\runtime\Ben.Demystifier.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
     <Reference Include="Bootstrapper">
-      <HintPath>D:\ragemp\server-files\bridge\runtime\Bootstrapper.dll</HintPath>
+      <HintPath>D:\ragemp\server-files\dotnet\runtime\Bootstrapper.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">

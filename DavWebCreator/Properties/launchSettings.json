@@ -2,7 +2,7 @@
   "profiles": {
     "DavWebCreator": {
       "commandName": "Executable",
-      "executablePath": "D:\\ragemp\\server-files\\server.exe",
+      "executablePath": "D:\\ragemp\\server-files\\ragemp-server.exe",
       "workingDirectory": "D:\\ragemp\\server-files\\"
     }
   }

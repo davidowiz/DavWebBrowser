@@ -157,7 +157,7 @@ namespace DavWebCreator.Server.Models.Browser
 
         
 
-        public void OpenBrowser(Client player)
+        public void OpenBrowser(Player player)
         {
             foreach (var progressBar in ProgressBars)
             {

@@ -10,6 +10,7 @@ using DavWebCreator.Client.Models.Browser.Elements.Fonts;
 using DavWebCreator.Client.Models.Browser.Elements.Textboxes;
 using DavWebCreator.Client.Models.Communication;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RAGE;
 using RAGE.Ui;
 using System;
@@ -31,6 +32,7 @@ namespace DavWebCreator.Client
 
         private HtmlWindow BrowserWindow;
         private Browser BrowserModel;
+        //private Dictionary<Guid, string> HiddenValues;
 
         public CEFBrowserEvents()
         {
@@ -124,7 +126,7 @@ namespace DavWebCreator.Client
             //RAGE.Events.CallRemote("BROWSER_TEXT", args);
             if (!Guid.TryParse(args[0].ToString(), out Guid guid))
             {
-                Chat.Output("We got him: " + guid);
+                //Chat.Output("We got him: " + guid);
                 return;
             }
 
@@ -135,7 +137,7 @@ namespace DavWebCreator.Client
             if (response == null)
                 return;
 
-            RAGE.Events.CallRemote(returnEvent, response);
+            Events.CallRemote(returnEvent, response);
         }
 
 
@@ -178,6 +180,39 @@ namespace DavWebCreator.Client
                 allElements.AddRange(BrowserModel.ProgressBars);
                 allElements.AddRange(BrowserModel.Container);
                 allElements.AddRange(BrowserModel.Icons);
+
+                //this.HiddenValues = new Dictionary<Guid, string>();
+
+                //foreach (var element in allElements)
+                //{
+                //    switch (element.Type)
+                //    {
+                //        case BrowserElementType.DropDown:
+                //            var dropDown = element as BrowserDropDown;
+                //            if (dropDown == null)
+                //                continue;
+
+                //            foreach (var dropValue in dropDown.Values)
+                //            {
+                //                if (this.TryParseJSON(dropValue.HiddenValue, out JObject obj))
+                //                {
+                //                    this.HiddenValues.Add(dropValue.Id, dropValue.HiddenValue);
+                //                }   
+                //            }
+                //            break;
+                //        case BrowserElementType.Button:
+                //            //var button = element as BrowserButton;
+                //            //if (this.TryParseJSON(button.HiddenValue, out JObject obj))
+                //            //{
+                //            //    this.HiddenValues.Add(button.Id, button.);
+                //            //}
+                //            break;
+                //        default:
+
+                //            break;
+                //    }
+                //}
+
 
                 string backgroundColor = "";
                 if (!string.IsNullOrEmpty(this.BrowserModel.BackgroundColor))
@@ -232,6 +267,20 @@ namespace DavWebCreator.Client
             catch (Exception e)
             {
                 //ProvideError(e);
+            }
+        }
+
+        private bool TryParseJSON(string json, out JObject jObject)
+        {
+            try
+            {
+                jObject = JObject.Parse(json);
+                return true;
+            }
+            catch
+            {
+                jObject = null;
+                return false;
             }
         }
 

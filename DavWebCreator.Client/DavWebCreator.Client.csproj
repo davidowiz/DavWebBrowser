@@ -82,8 +82,7 @@ Requires the "DavWebCreator.Server" package to run.</Description>
       <Private>true</Private>
     </Reference>
     <Reference Include="rage-sharp">
-      <HintPath>C:\Users\Blysc\source\repos\rageroleplay\bridge\runtime\rage-sharp.dll</HintPath>
-      <Private>true</Private>
+      <HintPath>D:\ragemp\dotnet\rage-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
 
